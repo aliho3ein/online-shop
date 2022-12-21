@@ -1,0 +1,40 @@
+.signUpForm {
+  width: 50vw;
+  padding: 100px 50px;
+  margin: 50px auto;
+  background-color: #ccc;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+  label {
+    color: #666;
+    font-size: 1.3rem;
+    user-select: none;
+  }
+
+  input {
+    width: 50%;
+    padding: 10px;
+    font-size: 1.5rem;
+    margin: 10px 0 30px;
+  }
+
+  button {
+    all: unset;
+    background-color: #333;
+    padding: 8px 10px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 200ms;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: #666;
+    }
+  }
+}
+
+.logInForm {
+  @extend .signUpForm;
+}
