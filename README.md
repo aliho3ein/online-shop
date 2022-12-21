@@ -10,7 +10,7 @@ this Project used :
 
 ---
 
-install this packages
+packages
 
 - Next , react-dom
 - redux , redux-toolkit

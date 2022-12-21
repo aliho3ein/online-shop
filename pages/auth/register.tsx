@@ -36,6 +36,7 @@ const register: NextPage = () => {
     let res = await CallApi().post("/users.json", values);
     if (res.status === 200) {
       Router.push(`/auth/${values.name}?mail=${values.mail}`);
+      sendVerify();
     } else console.log("error");
   };
 

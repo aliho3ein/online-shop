@@ -9,7 +9,7 @@ let mailTransporter = nodemailer.createTransport({
   },
 });
 
-function sendVerify() {
+export function sendVerify() {
   console.log("value");
   /* let detail = {
     from: "aliho3ein.onlineshop@gmail.com",
@@ -22,5 +22,3 @@ function sendVerify() {
     err ? console.log(err) : console.log("success");
   });*/
 }
-
-module.exports = { sendVerify };
