@@ -20,11 +20,14 @@ const LogIn: NextPage = () => {
     pass: "",
   };
 
-  const CheckUserLogin = (value: object) => {
+  const CheckUserLogin = (value: any) => {
     CallApi()
       .get("/users.json")
       .then((res) => {
-        let user = Object.values(res.data).find((item) => console.log(item));
+        let user = Object.values(res.data).find(
+          (item: any) => item.mail === value.mail
+        );
+        user && console.log("login");
       });
   };
   return (

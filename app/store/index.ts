@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import portSlice from "./slice/portalSlice";
 // ...
 
 export const store = configureStore({
-  reducer: {},
+  reducer: { portSlice },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

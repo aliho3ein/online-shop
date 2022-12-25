@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
 
+const Email = "";
+
 let mailTransporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -9,16 +11,18 @@ let mailTransporter = nodemailer.createTransport({
   },
 });
 
-export function sendVerify() {
+function sendVerify() {
   console.log("value");
-  /* let detail = {
+  let detail = {
     from: "aliho3ein.onlineshop@gmail.com",
-    to: "mail",
+    to: Email,
     subject: "this is a test",
     text: "this is an text",
   };
 
   mailTransporter.sendMail(detail, (err) => {
     err ? console.log(err) : console.log("success");
-  });*/
+  });
 }
+
+sendVerify();

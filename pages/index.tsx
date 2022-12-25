@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Link href="./auth/register">Register</Link>
-      <Link href="./auth/login">Login</Link>
+      <Link href="./portal">Portal</Link>
     </>
   );
 }

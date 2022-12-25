@@ -3,7 +3,7 @@ import axios from "axios";
 const CallApi = () => {
   const axiosInstance = axios.create({
     baseURL:
-      "https://myblog-de-default-rtdb.europe-west1.firebasedatabase.app/",
+      "https://online-shop-87fb7-default-rtdb.europe-west1.firebasedatabase.app/",
   });
 
   axiosInstance.interceptors.request.use(
