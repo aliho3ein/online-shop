@@ -7,7 +7,6 @@ const portSlice = createSlice({
   initialState: {
     category: [],
     items: [],
-    catName: "",
     userName: "Admin",
     token: "",
   },
@@ -36,12 +35,12 @@ const portSlice = createSlice({
     updateCategory: (state: any, action: PayloadAction<any>) => {
       let upCat = action.payload;
       let Cat = state.category.filter((el: any) => el.key !== upCat.key);
-      state.category = [...Cat, upCat];
+      state.category = [...Cat, upCat].sort(compare);
     },
     updateItem: (state: any, action: PayloadAction<any>) => {
       let upItem = action.payload;
       let Itm = state.items.filter((el: any) => el.key !== upItem.key);
-      state.items = [...Itm, upItem];
+      state.items = [...Itm, upItem].sort(compare);
     },
     updateAllItems: (state: any, action: PayloadAction<string>) => {
       state.items = state.items.filter(
@@ -70,3 +69,14 @@ export const selectCat = (state: RootState) => state.portSlice.category;
 export const selectItem = (state: RootState) => state.portSlice.items;
 export const selectAct = (state: RootState) => state.portSlice.catName;
 export const selectUser = (state: RootState) => state.portSlice.userName;
+
+/*================= Sort the Lists =======================*/
+function compare(a: any, b: any) {
+  if (a.key < b.key) {
+    return -1;
+  }
+  if (a.key > b.key) {
+    return 1;
+  }
+  return 0;
+}

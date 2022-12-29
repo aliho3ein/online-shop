@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   addItem,
   selectItem,
   selectUser,
   updateItem,
 } from "../../app/store/slice/portalSlice";
-import { addPm } from "./../../app/actions/alerts";
+import { addPm, backToMainPm } from "./../../app/actions/alerts";
 /* Upload Image */
 import { storage } from "../../app/instance/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -19,6 +19,18 @@ import CallApi from "../../app/instance/api";
 
 export default function ItForm() {
   let [catImage, SetCatImage] = useState<string | null>();
+  /* Check if Change */
+  let [changeInput, SetChangeInput] = useState<boolean | null>();
+
+  useEffect(() => checkInputs(), []);
+  /* Check if Input Change */
+  let checkInputs = () => {
+    const inputs: any = document.querySelectorAll("input");
+    inputs.forEach((item: any) => {
+      item.addEventListener("change", () => SetChangeInput(true));
+    });
+  };
+
   const dispatcher = useAppDispatch();
   const router = useRouter();
   const user = useAppSelector(selectUser);
@@ -92,10 +104,18 @@ export default function ItForm() {
           .then((res: any) => {
             newItem.key = Edit;
             dispatcher(updateItem(newItem));
-            addPm("warning", "Item wurde bearbeitet");
+            addPm("success", "Item wurde bearbeitet");
             setTimeout(() => router.push("/portal/itemsGroup"), 2000);
           })
           .catch((err) => console.log("error"));
+  };
+
+  /* Back To Main */
+  const backToMain = () => {
+    changeInput ? backToMainPm(pushToMain) : pushToMain();
+  };
+  const pushToMain = () => {
+    router.push("/portal/itemsGroup");
   };
 
   return (
@@ -105,7 +125,7 @@ export default function ItForm() {
         <div className="formCatItem">
           <span
             className="backToCat"
-            onClick={() => router.push("/portal/itemsGroup")}
+            onClick={backToMain}
             title="züruck zu Items group"
           >
             -

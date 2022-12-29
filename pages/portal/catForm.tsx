@@ -1,8 +1,7 @@
-import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addPm, deletePm } from "./../../app/actions/alerts";
+import { addPm, backToMainPm, deletePm } from "./../../app/actions/alerts";
 
 /* Api */
 import CallApi from "../../app/instance/api";
@@ -21,6 +20,17 @@ import FixedItems from "../../app/component/fixedItems";
 
 export default function CatForm() {
   let [catImage, SetCatImage] = useState<string | null>();
+  let [changeInput, SetChangeInput] = useState<boolean | null>();
+
+  useEffect(() => checkInputs(), []);
+  /* Check if Input Change */
+  let checkInputs = () => {
+    const inputs: any = document.querySelectorAll("input");
+    inputs.forEach((item: any) => {
+      item.addEventListener("change", () => SetChangeInput(true));
+    });
+  };
+
   let router = useRouter();
   /* Dispatch */
   const dispatcher = useAppDispatch();
@@ -100,16 +110,24 @@ export default function CatForm() {
     // router.push("/portal/categorys");
   };
 
+  /* Back To Main */
+  const backToMain = () => {
+    changeInput ? backToMainPm(pushToMain) : pushToMain();
+  };
+  const pushToMain = () => {
+    router.push("/portal/categorys");
+  };
+
   return (
     <main>
       <FixedItems />
       <section id="bSide">
         <div className="formCatItem">
-          <Link
-            href="/portal/categorys"
+          <span
+            onClick={backToMain}
             className="backToCat"
             title="züruck zu Main"
-          ></Link>
+          ></span>
 
           {Edit && (
             <p>

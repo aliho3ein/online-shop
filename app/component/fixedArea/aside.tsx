@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 /** */
@@ -15,16 +14,20 @@ import {
   faLifeRing,
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAppSelector } from "../../hooks";
+import { selectCat, selectItem } from "../../store/slice/portalSlice";
 
 export default function MainAside() {
   const router = useRouter();
   let [thisNav, setThisNav] = useState([]);
-  const navActive = router.asPath;
+
+  const allCategorys = useAppSelector(selectCat);
+  const allItems = useAppSelector(selectItem);
 
   useEffect(() => {
     asideEffect();
     innerNav();
-    activeNav(router.asPath, getNav);
+    activeNav(router.asPath, allCategorys, allItems, getNav);
   }, []);
 
   /* Set Nav */

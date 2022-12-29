@@ -5,14 +5,22 @@
   background: $blue-gradient;
   display: flex;
   align-items: center;
-  justify-content: center;
   color: #fff;
+}
 
-  h1 {
-    font-size: 2rem;
-    a {
-      all: unset;
-      cursor: pointer;
+.siteMap {
+  user-select: none;
+  font-size: 1.4rem;
+  &:before {
+    content: ">";
+    color: #aaa;
+    margin-inline: 15px;
+  }
+
+  &:first-child {
+    margin-left: 20%;
+    &:before {
+      content: "";
     }
   }
 }

@@ -1,4 +1,3 @@
-import { faN } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 
 const Toast = Swal.mixin({
@@ -26,8 +25,8 @@ const deletePm = (pm, fu) => {
     text: pm,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
+    confirmButtonColor: "#032d7b",
+    cancelButtonColor: "#eb2727",
     confirmButtonText: "Ja, Lösche es!",
   }).then((result) => {
     if (result.isConfirmed) {
@@ -37,4 +36,20 @@ const deletePm = (pm, fu) => {
   });
 };
 
-export { addPm, deletePm };
+const backToMainPm = (link) => {
+  Swal.fire({
+    title: "Sind sie sicher?",
+    text: "Sie haben Ihre Änderung noch nicht gespeichert ",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#032d7b",
+    cancelButtonColor: "#eb2727",
+    confirmButtonText: "Nicht speichern",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      link();
+    }
+  });
+};
+
+export { addPm, deletePm, backToMainPm };
