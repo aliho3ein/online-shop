@@ -1,0 +1,15 @@
+@import "./variable";
+
+#footer {
+  grid-area: footer;
+  background: $blue-gradient;
+  display: grid;
+  place-content: center;
+  color: #aaa;
+  font-size: 0.8rem;
+  user-select: none;
+  a {
+    all: unset;
+    cursor: pointer;
+  }
+}

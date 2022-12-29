@@ -1,0 +1,155 @@
+@import "./variable";
+
+/******************** Items Forms ***************/
+.formCatItem {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 150px;
+
+  > p {
+    align-self: flex-end;
+    font-size: 0.9rem;
+    color: #777;
+    strong,
+    span {
+      color: #333;
+    }
+  }
+
+  .backToCat {
+    height: 3px;
+    width: 25px;
+    background-color: #333;
+    margin: -50px 0 50px -50px;
+    position: relative;
+    border-radius: 10px;
+    cursor: pointer;
+    color: transparent;
+
+    &:after,
+    &:before {
+      content: "";
+      height: 3px;
+      width: 10px;
+      background-color: #444;
+      position: absolute;
+      transform: rotate(-45deg);
+      border-radius: 10px;
+
+      left: 0;
+      top: -4px;
+    }
+
+    &:after {
+      transform: rotate(45deg);
+      top: 4px;
+    }
+
+    &:hover {
+      animation: shakeBtn 3s 100ms infinite both;
+    }
+  }
+
+  section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-block: 20px;
+    justify-content: space-between;
+    gap: 10px;
+
+    label {
+      font-size: 1.2rem;
+      text-shadow: 0 0 5px #999;
+      user-select: none;
+
+      span {
+        font-size: 0.6rem;
+        vertical-align: super;
+        text-shadow: none;
+      }
+    }
+
+    input[type="input"],
+    textarea {
+      all: unset;
+      background: #e0e0e0;
+      box-shadow: inset 6px 6px 9px #cccccc, inset -6px -6px 9px #f4f4f4;
+      padding: 1rem;
+      font-size: 1.3rem;
+      resize: none;
+
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+
+    input[type="checkbox"] {
+      margin-right: 8px;
+      height: 17px;
+    }
+
+    /* CheckBox For Offer */
+    .offerLabel {
+      cursor: pointer;
+
+      #offPrice {
+        display: none !important;
+        margin-top: 8px;
+      }
+    }
+
+    #offerItem,
+    #noItem {
+      &:checked ~ #offPrice {
+        display: block !important;
+        text-shadow: none;
+        cursor: text;
+      }
+    }
+  }
+
+  .singleCategoryBtns {
+    flex-direction: row;
+    justify-content: flex-end;
+
+    button {
+      all: unset;
+      user-select: none;
+      padding: 0.6rem 1.1rem;
+      font-size: 1rem;
+      align-self: flex-end;
+      cursor: pointer;
+      border-radius: 5px;
+      background: linear-gradient(145deg, #f0f0f0, #cacaca);
+      box-shadow: 5px 5px 10px #b1b1b1, -5px -5px 10px #ffffff;
+      transition: all 300ms;
+
+      &:nth-child(2) {
+        color: $red-color;
+      }
+
+      &:active {
+        transform: scale(0.95);
+        box-shadow: 5px 5px 10px #aaaaaa, -5px -5px 10px #ffffff;
+      }
+    }
+  }
+}
+
+@keyframes shakeBtn {
+  0%,
+  20% {
+    transform: translateX(0px);
+  }
+  10%,
+  30% {
+    transform: translateX(-10px);
+  }
+  40%,
+  100% {
+    transform: none;
+  }
+}

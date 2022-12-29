@@ -7,8 +7,8 @@ const portSlice = createSlice({
   initialState: {
     category: [],
     items: [],
-    action: "",
-    userName: "",
+    catName: "",
+    userName: "Admin",
     token: "",
   },
   reducers: {
@@ -25,23 +25,23 @@ const portSlice = createSlice({
     setAction: (state: any, action: PayloadAction<any>) => {
       state.action = action.payload;
     },
-    deleteCategory: (state: any, action: PayloadAction<object>) => {
-      let items = state.category.filter((el: any) => el.key !== action.payload);
-      state.category = items;
+    deleteCategory: (state: any, action: PayloadAction<any>) => {
+      state.category = state.category.filter(
+        (el: any) => el.key !== action.payload
+      );
     },
     deleteItem: (state: any, action: PayloadAction<object>) => {
-      let items = state.items.filter((el: any) => el.key !== action.payload);
-      state.items = items;
+      state.items = state.items.filter((el: any) => el.key !== action.payload);
     },
     updateCategory: (state: any, action: PayloadAction<any>) => {
-      let upCat = action.payload.newCat;
+      let upCat = action.payload;
       let Cat = state.category.filter((el: any) => el.key !== upCat.key);
       state.category = [...Cat, upCat];
     },
     updateItem: (state: any, action: PayloadAction<any>) => {
-      let upItem = action.payload.newIt;
-      let Cat = state.items.filter((el: any) => el.key !== upItem.key);
-      state.items = [...Cat, upItem];
+      let upItem = action.payload;
+      let Itm = state.items.filter((el: any) => el.key !== upItem.key);
+      state.items = [...Itm, upItem];
     },
     updateAllItems: (state: any, action: PayloadAction<string>) => {
       state.items = state.items.filter(
@@ -68,4 +68,5 @@ export const {
 /* Export States */
 export const selectCat = (state: RootState) => state.portSlice.category;
 export const selectItem = (state: RootState) => state.portSlice.items;
-export const selectAct = (state: RootState) => state.portSlice.action;
+export const selectAct = (state: RootState) => state.portSlice.catName;
+export const selectUser = (state: RootState) => state.portSlice.userName;

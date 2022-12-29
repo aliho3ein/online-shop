@@ -1,64 +1,44 @@
-import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import CallApi from "../instance/api";
+import { useRouter } from "next/router";
+import { deletePm } from "../actions/alerts";
 /* Redux */
-import {
-  deleteCategory,
-  selectCat,
-  updateCategory,
-  updateAllItems,
-} from "../store/slice/portalSlice";
-import { setAction, selectItem } from "../store/slice/portalSlice";
-/* Component */
-import SingleItem from "./singleItem";
+import { deleteCategory } from "../store/slice/portalSlice";
 
-export default function SingleCat(props: any) {
-  const { title, user, date, key, image, hashtag } = props.value;
+export default function SingleCategory(props: any) {
+  const { title, key, image } = props.value;
   const dispatcher = useAppDispatch();
-
-  let allItems = useAppSelector(selectItem);
-
-  let setAct = () => {
-    dispatcher(setAction(key));
-  };
-
-  let getItems = allItems.map((el: any, index: number) =>
-    el.category === key ? <SingleItem key={index} value={el} /> : null
-  );
+  const router = useRouter();
 
   /* Delete category */
   const deleteCat = () => {
     CallApi()
       .delete(`/category/${key}.json`)
       .then((res) => dispatcher(deleteCategory(key)));
-    deleteCatItems();
-  };
-  /* Delete all Items from deleted Category */
-  const deleteCatItems = () => {
-    dispatcher(updateAllItems(key));
-    /* CallApi()
-      .put("/items.json", newItems)
-      .then((res) => console.log("ok"));*/
   };
 
   /* Edit Category */
-  let getCat = useAppSelector(selectCat).find((el: any) => el.key === key);
   const editCat = () => {
-    console.log(getCat);
-  };
-  let upCat = () => {
-    const newCat = {};
-    CallApi()
-      .put(`/category/${key}.json`, newCat)
-      .then((res) => dispatcher(updateCategory({ newCat })));
+    router.push(`/portal/catForm?id=${key}`);
   };
 
   return (
-    <li onClick={setAct}>
-      {title}
-      <span onClick={deleteCat}> -- Delete -- </span>
-      <span onClick={editCat}> Edit</span>
-      <ul>{getItems}</ul>
-    </li>
+    <div className="catItem">
+      <span>{title}</span>
+      <button className="catEditBtn" onClick={editCat}>
+        Bearbeiten
+      </button>
+      <button
+        className="catDeleteBtn"
+        onClick={() =>
+          deletePm(
+            "Wenn Sie diese Kategorie löschen, werden alle Ihre Produkte in dieser Kategorie gelöscht",
+            deleteCat
+          )
+        }
+      >
+        Löschen
+      </button>
+    </div>
   );
 }

@@ -1,2 +1,41 @@
 @import "./variable";
-@import "./login";
+@import "./aside.module";
+@import "./bsideItem.module";
+@import "./bsideItem.module";
+@import "./bsideCategory.module";
+@import "./itemsForm.module";
+
+/* CSS Normalize */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $main-font;
+}
+
+/*
+@import "./login.module";
+@import "./header.module";
+@import "./footer.module";
+*/
+main {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template: 80px calc(100vh - 110px) 30px / 20vw 80vw;
+  grid-template-areas: "header header" "aside bside" "footer footer";
+  overflow: hidden;
+}
+
+/* Scroll */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary-color;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

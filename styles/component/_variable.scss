@@ -1,0 +1,40 @@
+/* Fonts */
+@font-face {
+  font-family: "Ubuntu";
+  src: local("Trickster"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Regular.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Bold.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-BoldItalic.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Italic.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Light.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Medium.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-MediumItalic.ttf) format("truetype");
+}
+$main-font: "Ubuntu", sans-serif;
+
+/* Colors */
+$primary-color: #032d7b;
+$secondary-color: #fdd702;
+$green-color: rgb(4, 199, 4);
+$red-color: rgb(235, 39, 39);
+
+$blue-gradient: linear-gradient(
+  to left,
+  #0f59c9,
+  #0e4db5,
+  #0c42a1,
+  #08378e,
+  #032d7b,
+  #032d7b
+);
+
+/* Gap In bottom of bSide */
+.freePlace {
+  margin-top: 100px;
+  border: 1px solid transparent;
+}
+
+.noDrop {
+  cursor: not-allowed !important;
+}

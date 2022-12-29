@@ -1,0 +1,18 @@
+@import "./variable";
+
+#header {
+  grid-area: header;
+  background: $blue-gradient;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+
+  h1 {
+    font-size: 2rem;
+    a {
+      all: unset;
+      cursor: pointer;
+    }
+  }
+}

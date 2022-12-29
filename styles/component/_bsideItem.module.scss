@@ -1,0 +1,263 @@
+@import "./variable";
+/*************************** ItemsArea ********** Start ***************************/
+.baseItems {
+  width: 80%;
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-block: 150px;
+  gap: 100px;
+
+  /********************** Single Item Groups ************************/
+  .itemsGroup {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    /* Group Header */
+    &Head {
+      height: 80px;
+      width: 100%;
+      padding-inline: 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      border-radius: 5px;
+      background: #e0e0e0;
+      box-shadow: 6px 6px 12px #d0d0d0, -6px -6px 12px #f0f0f0;
+
+      /* Category Title */
+      h2 {
+        user-select: none;
+        text-transform: capitalize;
+        text-shadow: 0 0 5px #999;
+      }
+
+      /* two Btn on Header */
+      > span {
+        height: 40px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #cacaca, #f0f0f0);
+        box-shadow: 5px 5px 10px #bababa, -5px -5px 10px #ffffff;
+        position: relative;
+      }
+
+      /* Add newItem Btn */
+      .addNewItem {
+        &:after,
+        &:before {
+          content: "";
+          height: 2px;
+          width: 16px;
+          background-color: #000;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+          transition: all 500ms;
+        }
+        &:before {
+          height: 15px;
+          width: 2px;
+        }
+
+        &:hover {
+          &:after {
+            transform: rotate(-180deg);
+          }
+          &:before {
+            transform: rotate(180deg);
+          }
+        }
+      }
+
+      /* Group Arrow */
+      .openCat {
+        &:after,
+        &:before {
+          content: "";
+          height: 2px;
+          width: 13px;
+          background-color: #000;
+          position: absolute;
+          transform: rotate(-50deg);
+          top: 21px;
+          left: 18px;
+        }
+        &:before {
+          transform: rotate(50deg);
+          left: 10px;
+        }
+
+        &:hover {
+          &:after,
+          &:before {
+            animation: shakeArrow 3s 200ms infinite both;
+          }
+        }
+      }
+      /* Group active Arrow */
+      .activeCat {
+        &:after,
+        &:before {
+          width: 17px;
+          transform: rotate(-45deg);
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+        }
+        &:before {
+          transform: rotate(45deg);
+        }
+
+        &:hover {
+          &:after,
+          &:before {
+            animation: none;
+          }
+        }
+      }
+    }
+
+    /* Group Body */
+    .activeGroup {
+      height: auto;
+      padding-block: 50px;
+    }
+
+    &Body {
+      height: 0;
+      overflow: hidden;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      background-color: #f0f0f0;
+      transition: all 300ms;
+
+      /****************************** Single Item PreView **********************/
+      .preItem {
+        width: 28%;
+        min-width: 280px;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        padding-block: 30px;
+        background: #f0f0f0;
+        box-shadow: inset 7px 7px 14px #cccccc, inset -7px -7px 14px #ffffff;
+        margin: 50px 20px;
+        transition: transform 300ms;
+
+        &Head {
+          height: 200px;
+          width: 100%;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+
+        &Body {
+          width: 100%;
+          height: 120px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding-inline: 30px;
+
+          h3 {
+            font-size: 1.2rem;
+            text-align: center;
+            padding-block: 20px;
+            span {
+              font-size: 1rem;
+              font-weight: 300;
+            }
+          }
+
+          > span {
+            align-self: flex-end;
+            font-size: 1.4rem;
+          }
+
+          span.onSale span {
+            font-size: 1rem;
+            position: relative;
+            padding-left: 20px;
+            color: #777;
+
+            &:after {
+              content: "";
+              height: 1px;
+              width: 80%;
+              left: 18px;
+              top: 8px;
+              transform: rotate(15deg);
+              position: absolute;
+              background-color: #000;
+            }
+          }
+        }
+
+        .icon {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          cursor: pointer;
+          font-size: 1.1rem;
+          color: #666;
+          transition: color 300ms;
+          z-index: 3;
+
+          &:hover {
+            color: $red-color;
+          }
+
+          &:first-child {
+            left: 10px;
+
+            &:hover {
+              color: #000;
+            }
+          }
+        }
+
+        &:hover {
+          transform: scale(1.02);
+        }
+      }
+
+      .soldOutItem {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: center / 80% url(./../../assets/images/ausverkauft.png)
+          no-repeat rgba(0 0 0 / 0.3);
+        backdrop-filter: blur(2px);
+        top: 0;
+      }
+    }
+  }
+}
+/* Animations */
+@keyframes shakeArrow {
+  5%,
+  20% {
+    top: 18px;
+  }
+  10%,
+  30% {
+    top: 24px;
+  }
+  40%,
+  100% {
+    top: 21px;
+  }
+}
+/*************************** ItemsArea ********** End ******************************/
