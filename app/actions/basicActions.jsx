@@ -1,3 +1,5 @@
+import { addPm } from "./alerts";
+
 /* aside Nav*/
 function asideEffect() {
   const nav = document.querySelectorAll(".mainNav");
@@ -36,4 +38,14 @@ function openGroup(id) {
   document.querySelector(`.ar${id}`)?.classList.toggle("activeCat");
 }
 
-export { maniNavEffect, asideEffect, innerNav, openGroup };
+/* Copy */
+function copyCode() {
+  const Code = document.querySelector(".formPass");
+  Code.value
+    ? (Code.select(),
+      document.execCommand("copy", false),
+      addPm("info", "Das Kennwort wurde kopiert"))
+    : addPm("warning", "Kennwort ist noch nicht da");
+}
+
+export { maniNavEffect, asideEffect, innerNav, openGroup, copyCode };

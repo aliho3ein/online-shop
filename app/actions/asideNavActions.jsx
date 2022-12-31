@@ -69,8 +69,8 @@ export default function activeNav(link, cats, items, nav) {
     case "pass":
       siteMap += `<span class='siteMap'>Kennwort</span>`;
       break;
-    case "users":
-      siteMap += `<span class='siteMap'>Benutzer</span>`;
+    case "userForm":
+      siteMap += `<span class='siteMap'>Benutzer</span><span class='siteMap'>Neue Benutzer</span>`;
       break;
     default:
       siteMap += `<span class='siteMap'>Not found</span>`;

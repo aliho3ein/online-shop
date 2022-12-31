@@ -4,7 +4,7 @@ const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
   showConfirmButton: false,
-  timer: 2000,
+  timer: 5000,
   timerProgressBar: true,
   didOpen: (toast) => {
     toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -12,7 +12,7 @@ const Toast = Swal.mixin({
   },
 });
 
-let addPm = (ic, pm) => {
+let addPm = (ic = "success", pm) => {
   Toast.fire({
     icon: ic,
     title: pm,
@@ -44,7 +44,7 @@ const backToMainPm = (link) => {
     showCancelButton: true,
     confirmButtonColor: "#032d7b",
     cancelButtonColor: "#eb2727",
-    confirmButtonText: "Nicht speichern",
+    confirmButtonText: "Ja , verlassen",
   }).then((result) => {
     if (result.isConfirmed) {
       link();

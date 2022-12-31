@@ -17,7 +17,7 @@ Packages
 - swr , formik , yup ( For user Login Area)
 - axios
 
-- uuid (create random id)
+- uid (create random id)
 - firebase 23MB
 
 ---

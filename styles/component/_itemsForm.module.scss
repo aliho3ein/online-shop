@@ -65,6 +65,13 @@
       text-shadow: 0 0 5px #999;
       user-select: none;
 
+      /** */
+      .icon {
+        font-size: 1rem;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+
       span {
         font-size: 0.6rem;
         vertical-align: super;
@@ -83,6 +90,10 @@
 
       &::placeholder {
         color: #aaa;
+      }
+
+      &:invalid {
+        border: 1px solid red;
       }
     }
 
@@ -107,6 +118,14 @@
         display: block !important;
         text-shadow: none;
         cursor: text;
+      }
+    }
+
+    .inValidInput {
+      animation: shakeInput 800ms both !important;
+
+      &::placeholder {
+        color: rgba($red-color, 0.7) !important;
       }
     }
   }
@@ -137,6 +156,36 @@
       }
     }
   }
+
+  .formCheckboxes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 20px;
+    label {
+      margin: 10px;
+      cursor: pointer;
+      font-size: 1.4rem;
+      margin-right: 35px;
+
+      /* question sign */
+      span {
+        padding: 0 5px;
+        color: #fff;
+        background-color: #888;
+        border-radius: 50%;
+        margin-left: 8px;
+        font-size: 0.8rem;
+        transition: all 300ms;
+        &:hover {
+          background-color: #333;
+        }
+      }
+    }
+    input[type="checkbox"] {
+      cursor: pointer;
+    }
+  }
 }
 
 @keyframes shakeBtn {
@@ -151,5 +200,22 @@
   40%,
   100% {
     transform: none;
+  }
+}
+
+@keyframes shakeInput {
+  0%,
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(-10px);
+  }
+
+  10%,
+  30%,
+  50%,
+  70% {
+    transform: translateX(10px);
   }
 }

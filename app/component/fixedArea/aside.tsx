@@ -106,7 +106,11 @@ export default function MainAside() {
             <li className={style.inNav} style={i_2}>
               Alle Nutzer
             </li>
-            <li className={style.inNav} style={i_3}>
+            <li
+              className={style.inNav}
+              onClick={() => router.push("/security/userForm")}
+              style={i_3}
+            >
               neuer Benutzer
             </li>
           </ul>

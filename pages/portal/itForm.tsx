@@ -8,10 +8,11 @@ import {
   updateItem,
 } from "../../app/store/slice/portalSlice";
 import { addPm, backToMainPm } from "./../../app/actions/alerts";
+import { checkValidation, inValidInput } from "../../app/actions/validations";
 /* Upload Image */
 import { storage } from "../../app/instance/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-/** */
+/** styles */
 import style from "./../../styles/component/_itemsForm.module.scss";
 import FixedItems from "../../app/component/fixedItems";
 /** */
@@ -22,8 +23,8 @@ export default function ItForm() {
   /* Check if Change */
   let [changeInput, SetChangeInput] = useState<boolean | null>();
 
-  useEffect(() => checkInputs(), []);
   /* Check if Input Change */
+  useEffect(() => checkInputs(), []);
   let checkInputs = () => {
     const inputs: any = document.querySelectorAll("input");
     inputs.forEach((item: any) => {
@@ -54,6 +55,35 @@ export default function ItForm() {
   };
 
   /* Add/Edit Item*/
+  let newItem: any;
+
+  const addIt = (valid: boolean, pm?: string, cls?: string) => {
+    if (!valid) {
+      addPm("error", pm);
+      inValidInput(cls);
+    } else {
+      !Edit
+        ? CallApi()
+            .post("/items.json", newItem)
+            .then((res: any) => {
+              newItem.key = res.data.name;
+              dispatcher(addItem(newItem));
+              addPm("success", "Item wurde gespeichert");
+              router.push("/portal/itemsGroup");
+            })
+            .catch((err) => console.log(err))
+        : CallApi()
+            .put(`/items/${Edit}.json`, newItem)
+            .then((res: any) => {
+              newItem.key = Edit;
+              dispatcher(updateItem(newItem));
+              addPm("success", "Item wurde bearbeitet");
+              router.push("/portal/itemsGroup");
+            })
+            .catch((err) => console.log("error"));
+    }
+  };
+
   const addNewItem = () => {
     const title = document.querySelector(
       ".formTitle"
@@ -74,7 +104,7 @@ export default function ItForm() {
       "#noItem"
     ) as HTMLInputElement | null;
 
-    let newItem: any = {
+    newItem = {
       user,
       category: router.query.cat,
       title: title?.value,
@@ -89,25 +119,17 @@ export default function ItForm() {
       date: new Date().toDateString(),
     };
 
-    !Edit
-      ? CallApi()
-          .post("/items.json", newItem)
-          .then((res: any) => {
-            newItem.key = res.data.name;
-            dispatcher(addItem(newItem));
-            addPm("success", "Item wurde gespeichert");
-            setTimeout(() => router.push("/portal/itemsGroup"), 2000);
-          })
-          .catch((err) => console.log(err))
-      : CallApi()
-          .put(`/items/${Edit}.json`, newItem)
-          .then((res: any) => {
-            newItem.key = Edit;
-            dispatcher(updateItem(newItem));
-            addPm("success", "Item wurde bearbeitet");
-            setTimeout(() => router.push("/portal/itemsGroup"), 2000);
-          })
-          .catch((err) => console.log("error"));
+    checkValidation(
+      addIt,
+      title,
+      brand,
+      catImage,
+      url,
+      price,
+      off,
+      offPrice,
+      desc
+    );
   };
 
   /* Back To Main */

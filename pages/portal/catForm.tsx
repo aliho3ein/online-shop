@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addPm, backToMainPm, deletePm } from "./../../app/actions/alerts";
+import { catValidation, inValidInput } from "../../app/actions/validations";
 
 /* Api */
 import CallApi from "../../app/instance/api";
@@ -62,6 +63,33 @@ export default function CatForm() {
   };
 
   /* Add Category */
+  let Category: any;
+  const addCa = (valid: boolean, pm?: string, cls?: string) => {
+    if (!valid) {
+      addPm("error", pm);
+      inValidInput(cls);
+    } else {
+      !Edit
+        ? CallApi()
+            .post("/category.json", Category)
+            .then((res: any) => {
+              Category.key = res.data.name;
+              dispatcher(addCategory(Category));
+              addPm("success", "Kategorie wurde gespeichert");
+              router.push("/portal/categorys");
+            })
+            .catch((err) => console.log("error"))
+        : CallApi()
+            .put(`/category/${Edit}.json`, Category)
+            .then((res: any) => {
+              Category.key = Edit;
+              dispatcher(updateCategory(Category));
+              addPm("success", "Kategorie wurde bearbeitet");
+              router.push("/portal/categorys");
+            })
+            .catch((err) => console.log("error"));
+    }
+  };
   let addCat = () => {
     const title = document.querySelector(
       ".formTitle"
@@ -71,33 +99,14 @@ export default function CatForm() {
       ".formUrl"
     ) as HTMLInputElement | null;
 
-    let Category: any = {
+    Category = {
       title: title?.value,
       hashtag: hash?.value,
       image: catImage || url.value,
       user: "admin",
       date: new Date().toDateString(),
     };
-
-    !Edit
-      ? CallApi()
-          .post("/category.json", Category)
-          .then((res: any) => {
-            Category.key = res.data.name;
-            dispatcher(addCategory(Category));
-            addPm("success", "Kategorie wurde gespeichert");
-            setTimeout(() => router.push("/portal/categorys"), 2000);
-          })
-          .catch((err) => console.log("error"))
-      : CallApi()
-          .put(`/category/${Edit}.json`, Category)
-          .then((res: any) => {
-            Category.key = Edit;
-            dispatcher(updateCategory(Category));
-            addPm("warning", "Kategorie wurde bearbeitet");
-            setTimeout(() => router.push("/portal/categorys"), 2000);
-          })
-          .catch((err) => console.log("error"));
+    catValidation(addCa, title, catImage, url);
   };
 
   /* Delete category */
