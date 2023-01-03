@@ -10,7 +10,8 @@
 
 .siteMap {
   user-select: none;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  color: $secondary-color;
   &:before {
     content: ">";
     color: #aaa;

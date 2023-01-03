@@ -7,8 +7,6 @@ const portSlice = createSlice({
   initialState: {
     category: [],
     items: [],
-    userName: "Admin",
-    token: "",
   },
   reducers: {
     setCategory: (state: any, action: PayloadAction<any>) => {
@@ -67,8 +65,6 @@ export const {
 /* Export States */
 export const selectCat = (state: RootState) => state.portSlice.category;
 export const selectItem = (state: RootState) => state.portSlice.items;
-export const selectAct = (state: RootState) => state.portSlice.catName;
-export const selectUser = (state: RootState) => state.portSlice.userName;
 
 /*================= Sort the Lists =======================*/
 function compare(a: any, b: any) {

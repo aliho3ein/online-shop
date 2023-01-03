@@ -1,25 +1,57 @@
-/** */
+import { useEffect, useState } from "react";
+import { selectUser, updateItem } from "../../app/store/slice/loginSlice";
+import { useRouter } from "next/router";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import CallApi from "../../app/instance/api";
 import FixedItems from "../../app/component/fixedItems";
 import style from "./../../styles/component/_itemsForm.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import { copyCode } from "../../app/actions/basicActions";
-import { rnId } from "../../app/actions/randomCode";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import CallApi from "../../app/instance/api";
+import { rnId, mxId } from "../../app/actions/randomCode";
 import { userValidation, inValidInput } from "../../app/actions/validations";
 import { addPm, backToMainPm } from "./../../app/actions/alerts";
-import { useRouter } from "next/router";
-import { selectUser } from "../../app/store/slice/portalSlice";
+
+interface usData {
+  title: string;
+  mail: string;
+  pss: string;
+  image: string | null;
+  user: string;
+  date: string;
+  ability: any;
+}
 
 /* Function Start */
 export default function userForm() {
   const dispatcher = useAppDispatch();
+  let [userData, setUserData] = useState<usData | null>();
+  /* Check if Change */
+  let [changeInput, SetChangeInput] = useState<boolean | null>();
+  /* Check if Input Change */
+  useEffect(() => checkInputs(), []);
+  let checkInputs = () => {
+    const inputs: any = document.querySelectorAll("input");
+    inputs.forEach((item: any) => {
+      item.addEventListener("change", () => SetChangeInput(true));
+    });
+  };
+
   const router = useRouter();
   /* GetUserName */
   const user = useAppSelector(selectUser);
   /** */
-  const Edit = router.query.key;
+  const Edit = router.query.id;
+
+  useEffect(() => {
+    if (Edit) {
+      CallApi()
+        .get(`/users/${Edit}.json`)
+        .then((res: any) => {
+          setUserData(res.data);
+        });
+    }
+  }, []);
 
   /* create Password */
   const createPsWd = () => {
@@ -28,7 +60,6 @@ export default function userForm() {
 
   /* Add/Edit Item*/
   let newItem: any;
-
   const addIt = (valid: boolean, pm?: string, cls?: string) => {
     if (!valid) {
       addPm("error", pm);
@@ -41,16 +72,16 @@ export default function userForm() {
               newItem.key = res.data.name;
               // dispatcher(addItem(newItem));
               addPm("success", "User wurde gespeichert");
-              router.push("/portal/");
+              router.push("/security/");
             })
             .catch((err) => console.log(err))
         : CallApi()
             .put(`/users/${Edit}.json`, newItem)
             .then((res: any) => {
               newItem.key = Edit;
-              // dispatcher(updateItem(newItem));
+              dispatcher(updateItem(newItem));
               addPm("success", "User wurde bearbeitet");
-              router.push("/portal/");
+              router.push("/security/");
             })
             .catch((err) => console.log("error"));
     }
@@ -66,18 +97,40 @@ export default function userForm() {
     const password = document.querySelector(
       ".formPass"
     ) as HTMLInputElement | null;
+    /** abilities */
+
+    const manage = document.getElementById(
+      "userManage"
+    ) as HTMLInputElement | null;
+
+    const them = document.getElementById(
+      "userTheme"
+    ) as HTMLInputElement | null;
+
+    const security = document.getElementById(
+      "userSecurity"
+    ) as HTMLInputElement | null;
 
     newItem = {
       user,
-      userName: userName?.value,
+      title: userName?.value,
       mail: mail?.value,
       image: "",
       pss: password?.value,
-      ability: [true, true, true, true],
+      ability: [false, manage?.checked, them?.checked, security?.checked],
       date: new Date().toDateString(),
+      token: mxId(),
     };
 
-    userValidation(addIt, mail, userName, password);
+    user && userValidation(addIt, newItem);
+  };
+
+  /* Back To Main */
+  const backToMain = () => {
+    changeInput ? backToMainPm(pushToMain) : pushToMain();
+  };
+  const pushToMain = () => {
+    router.push("/security");
   };
 
   return (
@@ -85,15 +138,26 @@ export default function userForm() {
       <FixedItems />
       <section id="bSide">
         <div className="formCatItem">
-          <span className="backToCat" title="züruck zu Users group">
+          <span
+            className="backToCat"
+            onClick={backToMain}
+            title="züruck zu Users group"
+          >
             -
           </span>
+          {Edit && (
+            <p>
+              erstellt von <strong>{userData?.user}</strong> am
+              <span> {userData?.date}</span>
+            </p>
+          )}
           <section>
             <label>Email Address</label>
             <input
               type="input"
               className="formEmail"
               placeholder="user@email.com"
+              defaultValue={userData?.mail}
             />
           </section>
           <section>
@@ -102,6 +166,7 @@ export default function userForm() {
               type="input"
               className="formUsername"
               placeholder="username"
+              defaultValue={userData?.title}
             />
           </section>
           <section>
@@ -118,6 +183,7 @@ export default function userForm() {
               className="formPass cpCur"
               placeholder="Aktualieren Sie,um ein Passwort zu erhalten"
               onClick={copyCode}
+              defaultValue={userData?.pss}
               readOnly
             />
             <span>Das Passwort wird an Ihre angegebene E-Mail gesendet</span>
@@ -126,13 +192,22 @@ export default function userForm() {
             <label>Fähigkeit</label>
             <div className="formCheckboxes">
               <label htmlFor="userAdmin">
-                <input type="checkbox" id="userAdmin" disabled />
+                <input
+                  type="checkbox"
+                  id="userAdmin"
+                  defaultChecked={userData?.ability[0]}
+                  disabled
+                />
                 Voller Zugriff
                 <span title="Voller Zugriff ist nur für Admin-Benutzer">?</span>
               </label>
 
               <label htmlFor="userManage">
-                <input type="checkbox" id="userManage" />
+                <input
+                  type="checkbox"
+                  id="userManage"
+                  defaultChecked={userData?.ability[1]}
+                />
                 Verwaltung
                 <span title="Benutzer darf Kategorien  und Produkte  hinzufügen und entfernen">
                   ?
@@ -140,13 +215,21 @@ export default function userForm() {
               </label>
 
               <label htmlFor="userTheme">
-                <input type="checkbox" id="userTheme" />
+                <input
+                  type="checkbox"
+                  id="userTheme"
+                  defaultChecked={userData?.ability[2]}
+                />
                 Erscheinungsbild
                 <span title="Der Benutzer darf das Theme ändern">?</span>
               </label>
 
               <label htmlFor="userSecurity">
-                <input type="checkbox" id="userSecurity" />
+                <input
+                  type="checkbox"
+                  id="userSecurity"
+                  defaultChecked={userData?.ability[3]}
+                />
                 sicherheits
                 <span title="Benutzer darf einen neuen Benutzer hinzufügen , löschen oder die Fähigkeit ändern ( außer dem Admin-Benutzer )  ">
                   ?
@@ -154,7 +237,11 @@ export default function userForm() {
               </label>
             </div>
             <section className="singleCategoryBtns">
-              <button onClick={addNewItem}>Hinzufügen</button>
+              {Edit ? (
+                <button onClick={addNewItem}>Bearbeiten</button>
+              ) : (
+                <button onClick={addNewItem}>Hinzufügen</button>
+              )}
             </section>
             <div className={style.freePlace}></div>
           </section>

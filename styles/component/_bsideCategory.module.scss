@@ -14,9 +14,6 @@
     min-width: 300px;
     height: auto;
     padding-block: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
 
     /* Add category Btn */
     .catAddBtn {
@@ -25,8 +22,9 @@
       max-height: 20px;
       padding: 0.6rem 1.1rem 0.6rem 0.7rem;
       font-size: 1rem;
-      margin-block: 50px;
       cursor: pointer;
+      float: right;
+      margin-block: 50px;
       border-radius: 10px;
       background: linear-gradient(145deg, #f0f0f0, #cacaca);
       box-shadow: 7px 7px 14px #aaaaaa, -7px -7px 14px #ffffff;
@@ -49,8 +47,8 @@
       width: 100%;
       display: flex;
       align-items: center;
+      margin-top: 50px;
       padding-inline: 30px;
-      margin-bottom: 50px;
       user-select: none;
       background: #e0e0e0;
       box-shadow: 5px 5px 10px #b5b5b5, -5px -5px 10px #ffffff;

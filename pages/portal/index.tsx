@@ -6,25 +6,31 @@ import FixedItems from "../../app/component/fixedItems";
 import CallApi from "../../app/instance/api";
 /* store */
 import { setCategory } from "../../app/store/slice/portalSlice";
+import { selectToken } from "../../app/store/slice/loginSlice";
 
 export default function HomePortal() {
   const dispatcher = useAppDispatch();
+  const token = useAppSelector(selectToken);
 
   useEffect(() => {
     /* Get All data from DataBase */
-    CallApi()
-      .get(".json")
-      .then((res) => {
-        let Cat = Object.entries(res.data.category).map(([key, value]: any) => {
-          return { ...value, key };
-        });
-        let item = Object.entries(res.data.items).map(([key, value]: any) => {
-          return { ...value, key };
-        });
 
-        dispatcher(setCategory({ Cat, item }));
-      })
-      .catch((err) => console.log("No Item To show"));
+    token &&
+      CallApi()
+        .get(".json")
+        .then((res) => {
+          let Cat = Object.entries(res.data.category).map(
+            ([key, value]: any) => {
+              return { ...value, key };
+            }
+          );
+          let item = Object.entries(res.data.items).map(([key, value]: any) => {
+            return { ...value, key };
+          });
+          console.log("ok");
+          dispatcher(setCategory({ Cat, item }));
+        })
+        .catch((err) => console.log("No Item To show"));
   }, []);
 
   return (

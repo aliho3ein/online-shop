@@ -6,20 +6,23 @@ export default function activeNav(link, cats, items, nav) {
     newPr = "",
     thisCat = "";
 
+  /* Get Category Name */
+  if (link.includes("?")) {
+    let ca = "";
+
+    ca = cats.find(
+      (item) => item.key === link.split("?")[1].split("=")[1].slice(0, 20)
+    );
+
+    thisCat = `<span class='siteMap'>${ca?.title}</span>`;
+  }
+
   /* Get Item Name */
   if (link.includes("&")) {
     const it = items.find(
       (item) => item.key === link.split("&")[1].split("=")[1]
     );
     thisItem = `<span class='siteMap'>${it.title}</span>`;
-  }
-
-  /* Get Category Name */
-  if (link.includes("?")) {
-    const ca = cats.find(
-      (item) => item.key === link.split("?")[1].split("=")[1].slice(0, 20)
-    );
-    thisCat = `<span class='siteMap'>${ca.title}</span>`;
   }
 
   /* remove keys and ides */

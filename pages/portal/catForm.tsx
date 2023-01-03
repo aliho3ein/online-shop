@@ -12,6 +12,7 @@ import {
   selectCat,
   deleteCategory,
   updateCategory,
+  selectUser,
 } from "../../app/store/slice/portalSlice";
 /* Upload Image */
 import { storage } from "../../app/instance/firebase";
@@ -42,6 +43,8 @@ export default function CatForm() {
   /* Edit Category */
   const Edit = router.query.id;
   const categorys = useAppSelector(selectCat);
+  const user = useAppSelector(selectUser);
+
   if (Edit) {
     thisCat = categorys.find((item: any) => item.key == Edit);
 
@@ -103,10 +106,11 @@ export default function CatForm() {
       title: title?.value,
       hashtag: hash?.value,
       image: catImage || url.value,
-      user: "admin",
+      user,
       date: new Date().toDateString(),
     };
-    catValidation(addCa, title, catImage, url);
+
+    user && catValidation(addCa, Category);
   };
 
   /* Delete category */

@@ -73,7 +73,7 @@ export default function MainAside() {
 
             <li
               className={`inNav
-               ${thisNav[1] == "itForm" && "inNavActive"}`}
+               ${thisNav[1] == "itemsGroup" && "inNavActive"}`}
               style={i_2}
               onClick={() => router.push("/portal/itemsGroup")}
             >
@@ -96,7 +96,11 @@ export default function MainAside() {
             </li>
           </ul>
         </li>
-        <li className="mainNav" data-nav="3">
+        <li
+          className={`mainNav ${thisNav[0] == "security" && "navActive"}`}
+          data-nav="3"
+          onClick={() => router.push("/security")}
+        >
           <FontAwesomeIcon className="icon" icon={faUserLock} />
           Sicherheit
           <ul className="innerNav3" style={wd_1}>

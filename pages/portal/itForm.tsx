@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { useEffect, useState } from "react";
+import CallApi from "../../app/instance/api";
 import {
   addItem,
   selectItem,
-  selectUser,
   updateItem,
 } from "../../app/store/slice/portalSlice";
+import { selectUser } from "../../app/store/slice/loginSlice";
 import { addPm, backToMainPm } from "./../../app/actions/alerts";
 import { checkValidation, inValidInput } from "../../app/actions/validations";
 /* Upload Image */
@@ -15,8 +16,6 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 /** styles */
 import style from "./../../styles/component/_itemsForm.module.scss";
 import FixedItems from "../../app/component/fixedItems";
-/** */
-import CallApi from "../../app/instance/api";
 
 export default function ItForm() {
   let [catImage, SetCatImage] = useState<string | null>();
@@ -119,17 +118,7 @@ export default function ItForm() {
       date: new Date().toDateString(),
     };
 
-    checkValidation(
-      addIt,
-      title,
-      brand,
-      catImage,
-      url,
-      price,
-      off,
-      offPrice,
-      desc
-    );
+    user && checkValidation(addIt, newItem);
   };
 
   /* Back To Main */
@@ -154,7 +143,8 @@ export default function ItForm() {
           </span>
           {Edit && (
             <p>
-              erstellt von <strong>Admin</strong> am <span> 22 Jan 2022</span>
+              erstellt von <strong>{thisItem?.user}</strong> am
+              <span> {thisItem?.date}</span>
             </p>
           )}
           <section>
@@ -249,7 +239,7 @@ export default function ItForm() {
               <button onClick={addNewItem}>Hinzufügen</button>
             )}
           </section>
-          <div className={style.freePlace}></div>
+          <div className="freePlace"></div>
         </div>
       </section>
     </main>
