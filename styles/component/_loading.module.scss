@@ -1,0 +1,80 @@
+@import "variable";
+
+@-webkit-keyframes flippers {
+  0% {
+    -webkit-transform: perspective(40px) rotateY(-180deg);
+    transform: perspective(40px) rotateY(-180deg);
+  }
+  50% {
+    -webkit-transform: perspective(40px) rotateY(0deg);
+    transform: perspective(40px) rotateY(0deg);
+  }
+}
+@keyframes flippers {
+  0% {
+    -webkit-transform: perspective(40px) rotateY(-180deg);
+    transform: perspective(40px) rotateY(-180deg);
+  }
+  50% {
+    -webkit-transform: perspective(40px) rotateY(0deg);
+    transform: perspective(40px) rotateY(0deg);
+  }
+}
+
+@-webkit-keyframes flippersAlternate {
+  0% {
+    -webkit-transform: perspective(40px) rotateY(180deg);
+    transform: perspective(40px) rotateY(180deg);
+  }
+  50% {
+    -webkit-transform: perspective(40px) rotateY(0deg);
+    transform: perspective(40px) rotateY(0deg);
+  }
+}
+
+@keyframes flippersAlternate {
+  0% {
+    -webkit-transform: perspective(40px) rotateY(180deg);
+    transform: perspective(40px) rotateY(180deg);
+  }
+  50% {
+    -webkit-transform: perspective(40px) rotateY(0deg);
+    transform: perspective(40px) rotateY(0deg);
+  }
+}
+
+.flippersAlternate {
+  height: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 20px);
+  grid-gap: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.flippersAlternate div {
+  background-color: var(--second-color);
+  height: 20px;
+}
+.flippersAlternate div:nth-of-type(1) {
+  -webkit-animation: flippersAlternate 1.25s 0.25s infinite ease;
+  animation: flippersAlternate 1.25s 0.25s infinite ease;
+}
+.flippersAlternate div:nth-of-type(2) {
+  -webkit-animation: flippers 1.25s 0.5s infinite ease;
+  animation: flippers 1.25s 0.5s infinite ease;
+}
+.flippersAlternate div:nth-of-type(3) {
+  -webkit-animation: flippersAlternate 1.25s 0.75s infinite ease;
+  animation: flippersAlternate 1.25s 0.75s infinite ease;
+}
+.flippersAlternate div:nth-of-type(4) {
+  -webkit-animation: flippers 1.25s 1s infinite ease;
+  animation: flippers 1.25s 1s infinite ease;
+}
+.flippersAlternate div:nth-of-type(5) {
+  -webkit-animation: flippersAlternate 1.25s 1.25s infinite ease;
+  animation: flippersAlternate 1.25s 1.25s infinite ease;
+}

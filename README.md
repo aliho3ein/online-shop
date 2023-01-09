@@ -17,8 +17,9 @@ Packages
 - swr , formik , yup ( For user Login Area)
 - axios
 
-- uid (create random id)
+- rnid (create random id)
 - firebase 23MB
+- react-cookie
 
 ---
 

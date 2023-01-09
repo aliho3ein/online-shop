@@ -6,19 +6,22 @@ const loginSlice = createSlice({
   name: "LogInSlice",
   initialState: {
     users: [],
-    userName: "aliho3ein",
-    token: "5",
+    userName: "",
+    token: "",
     abMn: false,
     abTm: false,
     abSc: false,
   },
   reducers: {
     logInUser: (state: any, action: PayloadAction<any>) => {
-      state.token = action.payload.token;
-      state.userName = action.payload.name;
+      state.token = action.payload.token as string | null;
+      state.userName = action.payload.name as string | null;
       state.abMn = action.payload.ability[1];
       state.abTm = action.payload.ability[2];
       state.abSc = action.payload.ability[3];
+    },
+    logOutUser: (state: any) => {
+      state.token = "";
     },
     setUsers: (state: any, action: PayloadAction<any>) => {
       state.users = action.payload;
@@ -38,8 +41,14 @@ const loginSlice = createSlice({
 });
 
 export default loginSlice.reducer;
-export const { logInUser, setUsers, addUser, updateItem, deleteUser } =
-  loginSlice.actions;
+export const {
+  logInUser,
+  setUsers,
+  addUser,
+  updateItem,
+  deleteUser,
+  logOutUser,
+} = loginSlice.actions;
 
 export const selectAllUser = (state: RootState) => state.loginSlice.users;
 export const selectUser = (state: RootState) => state.loginSlice.userName;

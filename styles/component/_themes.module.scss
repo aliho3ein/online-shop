@@ -1,0 +1,90 @@
+@import "variable";
+
+.themeBase {
+  width: 80%;
+  min-width: 300px;
+  padding-block: 150px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10%;
+  align-items: center;
+
+  h1 {
+    width: 100%;
+    text-align: center;
+    user-select: none;
+    font-size: 2rem;
+  }
+
+  .pntCard {
+    height: 100px;
+    aspect-ratio: 2;
+    border-radius: 15px;
+    background: #e0e0e0;
+    box-shadow: 5px 5px 9px #cecece, -5px -5px 9px #f2f2f2;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    user-select: none;
+
+    .colorPlate {
+      height: 70%;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 0 8px 8px 0;
+      background: linear-gradient(
+        -50deg,
+        var(--primeC) 60%,
+        var(--secondC) 30%
+      );
+    }
+
+    input {
+      all: unset;
+      height: 30px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #cacaca, #f0f0f0);
+      box-shadow: 5px 5px 10px #c7c7c7, -5px -5px 10px #f9f9f9;
+
+      &:checked {
+        background: linear-gradient(145deg, #f0f0f0, #888686);
+        box-shadow: 0 0 10px #666;
+      }
+    }
+  }
+
+  .fontCard {
+    @extend .pntCard;
+
+    h2 {
+      font-family: var(--fontPattern);
+    }
+  }
+
+  > div {
+    width: 100%;
+    display: grid;
+    place-content: center;
+    button {
+      all: unset;
+      padding: 8px 15px;
+      font-size: 1rem;
+      background-color: var(--prime-color);
+      cursor: pointer;
+      color: #fff;
+      box-shadow: 0 0 5px #999;
+      transition: all 300ms;
+
+      &:hover {
+        filter: brightness(1.8);
+      }
+
+      &:active {
+        background-color: #000;
+      }
+    }
+  }
+}

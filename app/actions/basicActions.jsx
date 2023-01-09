@@ -38,7 +38,7 @@ function openGroup(id) {
   document.querySelector(`.ar${id}`)?.classList.toggle("activeCat");
 }
 
-/* Copy */
+/* Copy text to the Keyboard */
 function copyCode() {
   const Code = document.querySelector(".formPass");
   Code.value
@@ -64,7 +64,39 @@ function showPass() {
   );
 }
 
-export { maniNavEffect, asideEffect, innerNav, openGroup, copyCode, showPass };
+/** Enable Inputs in User Profile **/
+const enableInputs = () => {
+  const inPuts = document.querySelectorAll(".changeAble");
+  inPuts.forEach((item) => item?.toggleAttribute("disabled"));
+
+  /** Btns */
+  const edit = document.querySelector(".editBtn");
+  if (edit.style.display === "none") {
+    edit.style.display = "block";
+    document.querySelector(".saveBtn").style.display = "none";
+    document.querySelector(".cnBtn").style.display = "none";
+  } else {
+    edit.style.display = "none";
+    document.querySelector(".saveBtn").style.display = "block";
+    document.querySelector(".cnBtn").style.display = "block";
+  }
+
+  /* Show Pass */
+  const pss = document.getElementById("prPass");
+  pss.getAttribute("type") === "input"
+    ? pss.setAttribute("type", "password")
+    : pss.setAttribute("type", "input");
+};
+
+export {
+  maniNavEffect,
+  asideEffect,
+  innerNav,
+  openGroup,
+  copyCode,
+  showPass,
+  enableInputs,
+};
 
 /** Login Form Eye Icon  */
 const eye =

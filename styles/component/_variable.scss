@@ -1,35 +1,23 @@
 /* Fonts */
-@font-face {
-  font-family: "Ubuntu";
-  src: local("Trickster"),
-    url(./../../assets/fonts/Ubuntu/Ubuntu-Regular.ttf) format("truetype"),
-    url(./../../assets/fonts/Ubuntu/Ubuntu-Bold.ttf) format("truetype"),
-    url(./../../assets/fonts/Ubuntu/Ubuntu-BoldItalic.ttf) format("truetype"),
-    url(./../../assets/fonts/Ubuntu/Ubuntu-Italic.ttf) format("truetype"),
-    url(./../../assets/fonts/Ubuntu/Ubuntu-Light.ttf) format("truetype"),
-    url(./../../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf) format("truetype"),
-    url(./../../assets/fonts/Ubuntu/Ubuntu-Medium.ttf) format("truetype"),
-    url(./../../assets/fonts/Ubuntu/Ubuntu-MediumItalic.ttf) format("truetype");
-}
-$main-font: "Ubuntu", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
 
-/* Colors */
-$primary-color: #051937;
-$secondary-color: #fbae3c;
-
-// $secondary-color: #fdd702;
 $green-color: #04c704;
 $red-color: #eb2727;
 
 $blue-gradient: linear-gradient(
   to right,
-  #051937,
-  #051937,
-  #001c46,
-  #001f54,
-  #002263,
-  #072371
+  var(--prime-color) 60%,
+  var(--second-color)
 );
+
+#MAIN {
+  --prime-color: #051937;
+  --second-color: #fbae3c;
+  font-family: getFont(2);
+}
 
 /* Gap In bottom of bSide */
 .freePlace {
@@ -45,4 +33,23 @@ $blue-gradient: linear-gradient(
 
 .cpCur {
   cursor: copy !important;
+}
+
+/* Delete This var */
+$main-font: sans-serif;
+
+/* Colors */
+$primary-color: aqua;
+$secondary-color: red;
+@font-face {
+  font-family: "Ubuntu";
+  src: local("Trickster"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Regular.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Bold.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-BoldItalic.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Italic.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Light.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-Medium.ttf) format("truetype"),
+    url(./../../assets/fonts/Ubuntu/Ubuntu-MediumItalic.ttf) format("truetype");
 }

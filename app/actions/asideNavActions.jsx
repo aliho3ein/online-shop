@@ -1,4 +1,4 @@
-export default function activeNav(link, cats, items, nav) {
+export default function activeNav(link, cats, items) {
   let menu = link.split("/");
   let head = document.querySelector(".mainHeader");
 
@@ -22,7 +22,7 @@ export default function activeNav(link, cats, items, nav) {
     const it = items.find(
       (item) => item.key === link.split("&")[1].split("=")[1]
     );
-    thisItem = `<span class='siteMap'>${it.title}</span>`;
+    thisItem = `<span class='siteMap'>${it?.title}</span>`;
   }
 
   /* remove keys and ides */
@@ -66,14 +66,20 @@ export default function activeNav(link, cats, items, nav) {
       siteMap += "<span class='siteMap'>Produkt Gruop</span>";
       !thisItem && (newPr = "<span class='siteMap'>Neues Product</span>");
       break;
-    case "skin":
-      siteMap += `<span class='siteMap'>thema</span>`;
+    case "paint":
+      siteMap += `<span class='siteMap'>Farben</span>`;
       break;
-    case "pass":
-      siteMap += `<span class='siteMap'>Kennwort</span>`;
+    case "fonts":
+      siteMap += `<span class='siteMap'>Shriftart</span>`;
+      break;
+    case "profile":
+      siteMap += `<span class='siteMap'>Profile</span>`;
       break;
     case "userForm":
       siteMap += `<span class='siteMap'>Benutzer</span><span class='siteMap'>Neue Benutzer</span>`;
+      break;
+    case undefined:
+      menu[1] == "security" && (thisCat = `<span class='siteMap'>Users</span>`);
       break;
     default:
       siteMap += `<span class='siteMap'>Not found</span>`;
@@ -81,6 +87,4 @@ export default function activeNav(link, cats, items, nav) {
   }
 
   head.innerHTML = siteMap + thisCat + thisItem + newPr;
-
-  return nav([menu[1], menu[2], menu[3]]);
 }

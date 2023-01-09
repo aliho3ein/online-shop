@@ -10,15 +10,14 @@ import CallApi from "../../app/instance/api";
 import {
   addCategory,
   selectCat,
-  deleteCategory,
   updateCategory,
-  selectUser,
 } from "../../app/store/slice/portalSlice";
+import { selectUser } from "../../app/store/slice/loginSlice";
 /* Upload Image */
 import { storage } from "../../app/instance/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import FixedItems from "../../app/component/fixedItems";
+import UserPanelLayout from "../../app/component/fixedArea/main";
 
 export default function CatForm() {
   let [catImage, SetCatImage] = useState<string | null>();
@@ -132,75 +131,72 @@ export default function CatForm() {
   };
 
   return (
-    <main>
-      <FixedItems />
-      <section id="bSide">
-        <div className="formCatItem">
-          <span
-            onClick={backToMain}
-            className="backToCat"
-            title="züruck zu Main"
-          ></span>
+    <div className="formCatItem">
+      <span
+        onClick={backToMain}
+        className="backToCat"
+        title="züruck zu Main"
+      ></span>
 
-          {Edit && (
-            <p>
-              erstellt von <strong>{thisCat.user}</strong> am
-              <span> {thisCat.date}</span>
-            </p>
-          )}
-          <section>
-            <label>Title</label>
-            <input
-              type="input"
-              placeholder="Kategorie Name"
-              className="formTitle"
-              defaultValue={thisCat?.title}
-            />
-          </section>
-          <section>
-            <label>
-              Hashtags <span> ( optional )</span>
-            </label>
-            <input
-              type="input"
-              className="formHash"
-              placeholder="brands , artikles ,"
-              defaultValue={thisCat?.hashtag}
-            />
-          </section>
-          <section>
-            <label>Bild</label>
-            <input
-              type="input"
-              className="formUrl"
-              placeholder="URL Https://"
-              defaultValue={thisCat?.image}
-            />
-            oder
-            <input
-              type="file"
-              className="formImg"
-              onChange={uploadPic}
-              accept="image/*"
-            />
-            <label>
-              <span>bilder von PC haben priorität</span>
-            </label>
-          </section>
-          <section className="singleCategoryBtns">
-            {!Edit ? (
-              <button onClick={addCat}>Hinzufügen</button>
-            ) : (
-              <>
-                <button onClick={addCat}>Bearbeiten</button>
-                {/* <button onClick={() => deletePm(" wird gelöscht", deleteCat)}> 
+      {Edit && (
+        <p>
+          erstellt von <strong>{thisCat.user}</strong> am
+          <span> {thisCat.date}</span>
+        </p>
+      )}
+      <section>
+        <label>Title</label>
+        <input
+          type="input"
+          placeholder="Kategorie Name"
+          className="formTitle"
+          defaultValue={thisCat?.title}
+        />
+      </section>
+      <section>
+        <label>
+          Hashtags <span> ( optional )</span>
+        </label>
+        <input
+          type="input"
+          className="formHash"
+          placeholder="brands , artikles ,"
+          defaultValue={thisCat?.hashtag}
+        />
+      </section>
+      <section>
+        <label>Bild</label>
+        <input
+          type="input"
+          className="formUrl"
+          placeholder="URL Https://"
+          defaultValue={thisCat?.image}
+        />
+        oder
+        <input
+          type="file"
+          className="formImg"
+          onChange={uploadPic}
+          accept="image/*"
+        />
+        <label>
+          <span>bilder von PC haben priorität</span>
+        </label>
+      </section>
+      <section className="singleCategoryBtns">
+        {!Edit ? (
+          <button onClick={addCat}>Hinzufügen</button>
+        ) : (
+          <>
+            <button onClick={addCat}>Bearbeiten</button>
+            {/* <button onClick={() => deletePm(" wird gelöscht", deleteCat)}> 
                   Löschen
                 </button>*/}
-              </>
-            )}
-          </section>
-        </div>
+          </>
+        )}
       </section>
-    </main>
+    </div>
   );
 }
+
+CatForm.getLayout = (page: any) => <UserPanelLayout>{page}</UserPanelLayout>;

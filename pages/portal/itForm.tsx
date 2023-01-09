@@ -16,6 +16,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 /** styles */
 import style from "./../../styles/component/_itemsForm.module.scss";
 import FixedItems from "../../app/component/fixedItems";
+import UserPanelLayout from "../../app/component/fixedArea/main";
 
 export default function ItForm() {
   let [catImage, SetCatImage] = useState<string | null>();
@@ -83,25 +84,17 @@ export default function ItForm() {
     }
   };
 
+  type inPut = HTMLInputElement | null;
+
   const addNewItem = () => {
-    const title = document.querySelector(
-      ".formTitle"
-    ) as HTMLInputElement | null;
-    const brand = document.querySelector(
-      ".formBrand"
-    ) as HTMLInputElement | null;
-    const url = document.querySelector(".formUrl") as HTMLInputElement | null;
-    const price = document.querySelector(
-      ".formPrice"
-    ) as HTMLInputElement | null;
-    const off = document.getElementById("offerItem") as HTMLInputElement | null;
-    const offPrice = document.querySelector(
-      "#offPrice"
-    ) as HTMLInputElement | null;
-    const desc = document.querySelector(".desc") as HTMLInputElement | null;
-    const soldOut = document.querySelector(
-      "#noItem"
-    ) as HTMLInputElement | null;
+    const title = document.querySelector(".formTitle") as inPut;
+    const brand = document.querySelector(".formBrand") as inPut;
+    const url = document.querySelector(".formUrl") as inPut;
+    const price = document.querySelector(".formPrice") as inPut;
+    const off = document.getElementById("offerItem") as inPut;
+    const offPrice = document.querySelector("#offPrice") as inPut;
+    const desc = document.querySelector(".desc") as inPut;
+    const soldOut = document.querySelector("#noItem") as inPut;
 
     newItem = {
       user,
@@ -130,118 +123,115 @@ export default function ItForm() {
   };
 
   return (
-    <main>
-      <FixedItems />
-      <section id="bSide">
-        <div className="formCatItem">
-          <span
-            className="backToCat"
-            onClick={backToMain}
-            title="züruck zu Items group"
-          >
-            -
-          </span>
-          {Edit && (
-            <p>
-              erstellt von <strong>{thisItem?.user}</strong> am
-              <span> {thisItem?.date}</span>
-            </p>
-          )}
-          <section>
-            <label>Brand</label>
-            <input
-              type="input"
-              defaultValue={thisItem?.brand}
-              className="formBrand"
-              placeholder="Brand "
-            />
-          </section>
-          <section>
-            <label>Title</label>
-            <input
-              type="input"
-              className="formTitle"
-              placeholder="Artikle Name"
-              defaultValue={thisItem?.title}
-            />
-          </section>
-
-          <section>
-            <label>Bild</label>
-            <input
-              type="input"
-              className="formUrl"
-              defaultValue={thisItem?.image}
-              placeholder="URL Https://"
-            />
-            oder
-            <input
-              type="file"
-              onChange={uploadPic}
-              className="formImg"
-              accept="image/*"
-            />
-            <label>
-              <span>bilder von PC haben priorität</span>
-            </label>
-          </section>
-          <section>
-            <label>Preis</label>
-            <input
-              type="input"
-              defaultValue={thisItem?.price}
-              className="formPrice"
-              placeholder="in Euro"
-            />
-            <label htmlFor="offerItem" className="offerLabel">
-              <input
-                type="checkbox"
-                id="offerItem"
-                defaultChecked={thisItem?.off}
-              />
-              hat Artikel ein angebot ?
-              <input
-                type="input"
-                id="offPrice"
-                className="offPrice"
-                defaultValue={thisItem?.offPrice}
-                placeholder="Preis in Angebout"
-              />
-            </label>
-          </section>
-          <section>
-            <label>Bezeichnung</label>
-            <textarea
-              name=""
-              id=""
-              className="desc"
-              defaultValue={thisItem?.description}
-              placeholder=" Technische Merkmale "
-            ></textarea>
-          </section>
-          <section>
-            <label htmlFor="noItem" className={style.offerLabel}>
-              <input
-                type="checkbox"
-                id="noItem"
-                defaultChecked={thisItem?.soldOut}
-              />
-              Artikel ist ausverkauft ?
-            </label>
-          </section>
-          <section className="singleCategoryBtns">
-            {Edit ? (
-              <>
-                <button onClick={addNewItem}>Bearbeiten</button>
-                <button className="noDrop">Löschen</button>
-              </>
-            ) : (
-              <button onClick={addNewItem}>Hinzufügen</button>
-            )}
-          </section>
-          <div className="freePlace"></div>
-        </div>
+    <div className="formCatItem">
+      <span
+        className="backToCat"
+        onClick={backToMain}
+        title="züruck zu Items group"
+      >
+        -
+      </span>
+      {Edit && (
+        <p>
+          erstellt von <strong>{thisItem?.user}</strong> am
+          <span> {thisItem?.date}</span>
+        </p>
+      )}
+      <section>
+        <label>Brand</label>
+        <input
+          type="input"
+          defaultValue={thisItem?.brand}
+          className="formBrand"
+          placeholder="Brand "
+        />
       </section>
-    </main>
+      <section>
+        <label>Title</label>
+        <input
+          type="input"
+          className="formTitle"
+          placeholder="Artikle Name"
+          defaultValue={thisItem?.title}
+        />
+      </section>
+
+      <section>
+        <label>Bild</label>
+        <input
+          type="input"
+          className="formUrl"
+          defaultValue={thisItem?.image}
+          placeholder="URL Https://"
+        />
+        oder
+        <input
+          type="file"
+          onChange={uploadPic}
+          className="formImg"
+          accept="image/*"
+        />
+        <label>
+          <span>bilder von PC haben priorität</span>
+        </label>
+      </section>
+      <section>
+        <label>Preis</label>
+        <input
+          type="input"
+          defaultValue={thisItem?.price}
+          className="formPrice"
+          placeholder="in Euro"
+        />
+        <label htmlFor="offerItem" className="offerLabel">
+          <input
+            type="checkbox"
+            id="offerItem"
+            defaultChecked={thisItem?.off}
+          />
+          hat Artikel ein angebot ?
+          <input
+            type="input"
+            id="offPrice"
+            className="offPrice"
+            defaultValue={thisItem?.offPrice}
+            placeholder="Preis in Angebout"
+          />
+        </label>
+      </section>
+      <section>
+        <label>Bezeichnung</label>
+        <textarea
+          name=""
+          id=""
+          className="desc"
+          defaultValue={thisItem?.description}
+          placeholder=" Technische Merkmale "
+        ></textarea>
+      </section>
+      <section>
+        <label htmlFor="noItem" className={style.offerLabel}>
+          <input
+            type="checkbox"
+            id="noItem"
+            defaultChecked={thisItem?.soldOut}
+          />
+          Artikel ist ausverkauft ?
+        </label>
+      </section>
+      <section className="singleCategoryBtns">
+        {Edit ? (
+          <>
+            <button onClick={addNewItem}>Bearbeiten</button>
+            <button className="noDrop">Löschen</button>
+          </>
+        ) : (
+          <button onClick={addNewItem}>Hinzufügen</button>
+        )}
+      </section>
+      <div className="freePlace"></div>
+    </div>
   );
 }
+
+ItForm.getLayout = (page: any) => <UserPanelLayout>{page}</UserPanelLayout>;

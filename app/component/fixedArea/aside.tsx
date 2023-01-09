@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
 /** */
 import { asideEffect, innerNav } from "../../actions/basicActions";
 import activeNav from "../../actions/asideNavActions";
@@ -14,26 +15,25 @@ import {
   faLifeRing,
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import { selectCat, selectItem } from "../../store/slice/portalSlice";
+import { logOutUser } from "../../store/slice/loginSlice";
 
 export default function MainAside() {
   const router = useRouter();
-  let [thisNav, setThisNav] = useState([]);
-
+  const dispatcher = useAppDispatch();
   const allCategorys = useAppSelector(selectCat);
   const allItems = useAppSelector(selectItem);
 
   useEffect(() => {
     asideEffect();
     innerNav();
-    activeNav(router.asPath, allCategorys, allItems, getNav);
   }, []);
 
-  /* Set Nav */
-  let getNav = (nav: any) => {
-    setThisNav(nav);
-  };
+  /* Get Router must every time running */
+  useEffect(() => {
+    activeNav(router.asPath, allCategorys, allItems);
+  });
 
   /* Styles Variable */
   const wd_1: CSS.Properties = {
@@ -52,19 +52,22 @@ export default function MainAside() {
     ["--i" as any]: "3",
   };
 
+  const [cookies, setCookies] = useCookies(["login"]);
+
+  const logOut = () => {
+    setCookies("login", null, { path: "/" });
+    dispatcher(logOutUser());
+  };
+
   return (
     <aside id="aside">
       <ul className="mainNavBase">
-        <li
-          className={`mainNav ${thisNav[0] == "portal" && "navActive"}`}
-          data-nav="1"
-        >
+        <li className={`mainNav`} data-nav="1">
           <FontAwesomeIcon className="icon" icon={faSliders} />
           Verwaltung
           <ul className="innerNav1" style={wd_1}>
             <li
-              className={`inNav
-               ${thisNav[1] == "categorys" && "inNavActive"}`}
+              className="inNav"
               style={i_1}
               onClick={() => router.push("/portal/categorys")}
             >
@@ -72,8 +75,7 @@ export default function MainAside() {
             </li>
 
             <li
-              className={`inNav
-               ${thisNav[1] == "itemsGroup" && "inNavActive"}`}
+              className="inNav"
               style={i_2}
               onClick={() => router.push("/portal/itemsGroup")}
             >
@@ -88,30 +90,42 @@ export default function MainAside() {
           <FontAwesomeIcon className="icon" icon={faPalette} />
           Erscheinungsbild
           <ul className="innerNav2" style={wd_2}>
-            <li className={style.inNav} style={i_1}>
+            <li
+              className="inNav"
+              onClick={() => router.push("/theme/paint")}
+              style={i_1}
+            >
               Thema
             </li>
-            <li className={style.inNav} style={i_2}>
+            <li
+              className="inNav"
+              onClick={() => router.push("/theme/fonts")}
+              style={i_2}
+            >
               Schriftart
             </li>
           </ul>
         </li>
-        <li
-          className={`mainNav ${thisNav[0] == "security" && "navActive"}`}
-          data-nav="3"
-          onClick={() => router.push("/security")}
-        >
+        <li className={`mainNav`} data-nav="3">
           <FontAwesomeIcon className="icon" icon={faUserLock} />
           Sicherheit
           <ul className="innerNav3" style={wd_1}>
-            <li className={style.inNav} style={i_1}>
-              Kennwort
+            <li
+              className="inNav"
+              onClick={() => router.push("/security/profile")}
+              style={i_1}
+            >
+              Profile
             </li>
-            <li className={style.inNav} style={i_2}>
+            <li
+              className="inNav"
+              onClick={() => router.push("/security")}
+              style={i_2}
+            >
               Alle Nutzer
             </li>
             <li
-              className={style.inNav}
+              className="inNav"
               onClick={() => router.push("/security/userForm")}
               style={i_3}
             >
@@ -139,7 +153,9 @@ export default function MainAside() {
           Fehler Melden
         </li>
       </ul>
-      <button className="logout">Abmelden</button>
+      <button className="logout" onClick={logOut}>
+        Abmelden
+      </button>
     </aside>
   );
 }

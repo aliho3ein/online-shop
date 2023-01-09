@@ -11,7 +11,7 @@
   grid-area: aside;
   min-width: 310px;
   color: #fff;
-  background-color: $primary-color;
+  background-color: var(--prime-color);
   user-select: none;
   position: relative;
 
@@ -36,7 +36,7 @@
 
     &:hover {
       color: #333;
-      background-color: $secondary-color;
+      background-color: var(--second-color);
     }
   }
 
@@ -59,20 +59,20 @@
       transition: color 300ms;
       position: relative;
       --arrow: #ccc;
-      background-color: $primary-color;
+      background-color: var(--prime-color);
 
       /* inner List */
       ul {
         height: 0;
         overflow: hidden;
-        // transition: height 300ms;
+        transition: height 300ms;
         li {
           opacity: 0;
         }
       }
 
       &:hover {
-        color: $secondary-color;
+        color: var(--second-color);
         --arrow: #fff;
       }
 
@@ -109,9 +109,9 @@
 
     /* main Navbar Active */
     > li.navActive {
-      color: $secondary-color !important;
+      color: var(--second-color) !important;
       filter: brightness(1.2);
-      border-color: $secondary-color;
+      border-color: var(--second-color);
 
       &:after,
       &:before {
@@ -132,7 +132,7 @@
         flex-direction: column;
         align-items: center;
         list-style-type: none;
-        // transition: height 500ms;
+        transition: height 500ms;
 
         li {
           width: 80%;
@@ -140,21 +140,21 @@
           font-size: 1.2rem;
           padding: 1rem 2rem;
           cursor: pointer;
-          border-top: 1px solid rgba(166, 166, 166, 0.2);
+          border-top: 1px solid rgba(166, 166, 166, 0.1);
           transition: color 300ms;
           position: relative;
           color: #fff;
-          background-color: $primary-color;
+          background-color: var(--prime-color);
           opacity: 1;
           animation: fadeIn 500ms calc(var(--i) * 90ms) both;
 
           &:hover {
-            color: $secondary-color;
+            color: var(--second-color);
           }
         }
 
         li.inNavActive {
-          color: $secondary-color;
+          color: var(--second-color);
           --arrow: #fff;
           filter: brightness(0.9);
         }
@@ -171,7 +171,7 @@
 /* Under Navbar */
 @keyframes fadeIn {
   from {
-    transform: none;
+    transform: translateX(-200px);
   }
   to {
     transform: none;

@@ -11,7 +11,7 @@
 .siteMap {
   user-select: none;
   font-size: 1.2rem;
-  color: $secondary-color;
+  color: var(--second-color);
   &:before {
     content: ">";
     color: #aaa;

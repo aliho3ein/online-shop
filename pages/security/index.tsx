@@ -1,25 +1,18 @@
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { selectAllUser, setUsers } from "../../app/store/slice/loginSlice";
-import CallApi from "../../app/instance/api";
+import { selectAllUser } from "../../app/store/slice/loginSlice";
 /** Component */
-import FixedItems from "../../app/component/fixedItems";
 import SingleUser from "../../app/component/singleUser";
 import { useEffect } from "react";
+import UserPanelLayout from "../../app/component/fixedArea/main";
+import { getUsersFromDB } from "../../app/actions/logInUser";
 
 export default function users() {
   const dispatcher = useAppDispatch();
+
   useEffect(() => {
     /* Get All Users from DataBase */
-    CallApi()
-      .get(".json")
-      .then((res) => {
-        let user = Object.entries(res.data.users).map(([key, value]: any) => {
-          return { ...value, key };
-        });
-        dispatcher(setUsers(user));
-      })
-      .catch((err) => console.log("No Item To show"));
+    getUsersFromDB(dispatcher);
   }, []);
 
   const users = useAppSelector(selectAllUser);
@@ -29,17 +22,14 @@ export default function users() {
   ));
 
   return (
-    <main>
-      <FixedItems />
-      <section id="bSide">
-        <div className="baseCatItems">
-          <Link href="/security/userForm" className="catAddBtn">
-            Hinzufügen
-          </Link>
-          {getUser}
-          <div className="freePlace"></div>
-        </div>
-      </section>
-    </main>
+    <div className="baseCatItems">
+      <Link href="/security/userForm" className="catAddBtn">
+        Hinzufügen
+      </Link>
+      {getUser}
+      <div className="freePlace"></div>
+    </div>
   );
 }
+
+users.getLayout = (page: any) => <UserPanelLayout>{page}</UserPanelLayout>;

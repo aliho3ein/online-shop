@@ -52,4 +52,21 @@ const backToMainPm = (link) => {
   });
 };
 
-export { addPm, deletePm, backToMainPm };
+const changeTheme = (link) => {
+  Swal.fire({
+    title: "Sind sie sicher?",
+    text: "Wollen Sie wirklich Ihr Thema ändern ?",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#032d7b",
+    cancelButtonColor: "#eb2727",
+    confirmButtonText: "Ja",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      link();
+      addPm("success", "Ihr Thema wurde geändert");
+    }
+  });
+};
+
+export { addPm, deletePm, backToMainPm, changeTheme };

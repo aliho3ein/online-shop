@@ -1,0 +1,97 @@
+@import "./variable";
+
+.baseProfile {
+  width: 50%;
+  min-width: 300px;
+  min-height: 1300px;
+  padding-block: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  box-sizing: content-box;
+
+  span.prDate {
+    font-size: 0.8rem;
+    align-self: center;
+    margin-top: auto;
+    user-select: none;
+  }
+
+  h2 {
+    margin: 30px;
+    font-size: 1.2rem;
+  }
+
+  ul {
+    align-self: flex-start;
+    list-style-type: circle;
+    user-select: none;
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    box-sizing: border-box;
+
+    li {
+      margin-top: 1rem;
+      padding: 5px 15px;
+      border-bottom: 1px solid rgb(227, 232, 232);
+      font-size: 1rem;
+      line-height: 2rem;
+      display: flex;
+
+      input {
+        all: unset;
+        font-size: 1.2rem;
+        margin-left: 50px;
+        padding-inline: 10px;
+        background-color: #ccc;
+        width: 60%;
+        margin-left: auto;
+
+        &:disabled {
+          cursor: default;
+          border-color: transparent;
+          user-select: none;
+          background-color: transparent;
+        }
+      }
+    }
+
+    button {
+      all: unset;
+      position: absolute;
+      right: 20px;
+      font-size: 0.8rem;
+      transition: all 300ms;
+      color: #999;
+      --co: rgb(144, 134, 3);
+      cursor: pointer;
+
+      &:nth-child(2) {
+        right: 100px;
+        display: none;
+        --co: green;
+      }
+      &:nth-child(3) {
+        display: none;
+        --co: rgb(205, 17, 17);
+      }
+
+      &:hover {
+        color: var(--co);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .prImg {
+    height: 150px;
+    width: 150px;
+    // aspect-ratio: 1;
+    border-radius: 50%;
+    background: center / cover
+      url(https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/user-profile-icon.png);
+  }
+}
