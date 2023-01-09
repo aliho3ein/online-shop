@@ -1,14 +1,16 @@
 import { useRouter } from "next/router";
 import CallApi from "./../instance/api";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { deleteItem } from "../store/slice/portalSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { deletePm } from "../actions/alerts";
+import { addPm, deletePm } from "../actions/alerts";
+import { mnValid } from "../store/slice/loginSlice";
 
 export default function SingleItem({ value }: any) {
   const router = useRouter();
   const dispatcher = useAppDispatch();
+  const valid = useAppSelector(mnValid);
   const { image, brand, price, offPrice, off, soldOut, title, category, key } =
     value;
 
@@ -18,11 +20,15 @@ export default function SingleItem({ value }: any) {
       .then((res) => dispatcher(deleteItem(key)));
   };
 
+  const deIt = () => {
+    valid ? deletePm("", deItem) : addPm("error", "Sie haben keine Erlaubnis");
+  };
+
   return (
     <div
       className="preItem"
       onClick={() =>
-        router.push(`/portal/itForm?cat=${value.category}&key=${value.key}`)
+        router.push(`/portal/itForm?cat=${category}&key=${value.key}`)
       }
     >
       <FontAwesomeIcon
@@ -35,7 +41,7 @@ export default function SingleItem({ value }: any) {
         title="Löschen"
         onClick={(e) => {
           e.stopPropagation();
-          deletePm("", deItem);
+          deIt();
         }}
         icon={faTrash}
       />
@@ -45,7 +51,7 @@ export default function SingleItem({ value }: any) {
       <div
         className="preItemHead"
         style={{
-          backgroundImage: `url(${value.image})`,
+          backgroundImage: `url(${image})`,
         }}
       ></div>
       <div className="preItemBody">

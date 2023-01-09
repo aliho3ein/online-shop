@@ -1,18 +1,26 @@
 import { useState } from "react";
 import CallApi from "../../app/instance/api";
-import { changeTheme } from "../../app/actions/alerts";
+import { addPm, changeTheme } from "../../app/actions/alerts";
 import UserPanelLayout from "../../app/component/fixedArea/main";
 import style from "../../styles/component/_themes.module.scss";
 import { setBaseFont } from "../../app/actions/logInUser";
+import { useAppSelector } from "../../app/hooks";
+import { tmValid } from "../../app/store/slice/loginSlice";
 
 export default function font() {
   const [theme, setTheme] = useState<any>([]);
+  const valid = useAppSelector(tmValid);
 
   const getFont = () => {
     theme &&
       CallApi()
         .put("/theme/fonts.json", theme)
         .then((res) => setBaseFont(res.data));
+  };
+
+  /* Check User permission */
+  const chFont = () => {
+    valid ? changeTheme(getFont) : addPm("error", "Sie haben keine Erlaubnis");
   };
 
   return (
@@ -92,7 +100,7 @@ export default function font() {
       </label>
 
       <div>
-        <button onClick={() => changeTheme(getFont)}>Speichern</button>
+        <button onClick={chFont}>Speichern</button>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import {
   selectCat,
   updateCategory,
 } from "../../app/store/slice/portalSlice";
-import { selectUser } from "../../app/store/slice/loginSlice";
+import { mnValid, selectUser } from "../../app/store/slice/loginSlice";
 /* Upload Image */
 import { storage } from "../../app/instance/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -43,6 +43,7 @@ export default function CatForm() {
   const Edit = router.query.id;
   const categorys = useAppSelector(selectCat);
   const user = useAppSelector(selectUser);
+  const valid = useAppSelector(mnValid);
 
   if (Edit) {
     thisCat = categorys.find((item: any) => item.key == Edit);
@@ -109,7 +110,9 @@ export default function CatForm() {
       date: new Date().toDateString(),
     };
 
-    user && catValidation(addCa, Category);
+    valid
+      ? catValidation(addCa, Category)
+      : addPm("error", "Sie haben keine Erlaubnis");
   };
 
   /* Delete category */
@@ -187,12 +190,7 @@ export default function CatForm() {
         {!Edit ? (
           <button onClick={addCat}>Hinzufügen</button>
         ) : (
-          <>
-            <button onClick={addCat}>Bearbeiten</button>
-            {/* <button onClick={() => deletePm(" wird gelöscht", deleteCat)}> 
-                  Löschen
-                </button>*/}
-          </>
+          <button onClick={addCat}>Bearbeiten</button>
         )}
       </section>
     </div>

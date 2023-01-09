@@ -1,7 +1,10 @@
 import { useAppDispatch } from "../hooks";
 import { logInUser } from "../store/slice/loginSlice";
 import { showPass } from "../actions/basicActions";
-import checkUser, { checkUserWithKey } from "../actions/logInUser";
+import checkUser, {
+  checkUserWithKey,
+  getThemeFromDB,
+} from "../actions/logInUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserTie,
@@ -21,12 +24,10 @@ export default function LoginHome() {
     setCookie("login", key, { path: "/" });
   }
 
-  console.log(cookie);
-
-  useEffect(
-    () => cookie.login && checkUserWithKey(cookie.login, userIsTrue),
-    []
-  );
+  useEffect(() => {
+    getThemeFromDB();
+    cookie.login && checkUserWithKey(cookie.login, userIsTrue);
+  }, []);
 
   const dispatcher = useAppDispatch();
 

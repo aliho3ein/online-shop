@@ -1,18 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CallApi from "../../app/instance/api";
-import { changeTheme } from "../../app/actions/alerts";
+import { addPm, changeTheme } from "../../app/actions/alerts";
 import UserPanelLayout from "../../app/component/fixedArea/main";
 import style from "../../styles/component/_themes.module.scss";
 import { setBaseTheme } from "../../app/actions/logInUser";
+import { useAppSelector } from "../../app/hooks";
+import { tmValid } from "../../app/store/slice/loginSlice";
 
 export default function paint() {
   const [theme, setTheme] = useState<any>([]);
+  const valid = useAppSelector(tmValid);
 
   const getColor = () => {
     theme &&
       CallApi()
         .put("/theme/colors.json", theme)
         .then((res) => setBaseTheme(res.data));
+  };
+
+  /* Check User permission */
+  const chTheme = () => {
+    valid ? changeTheme(getColor) : addPm("error", "Sie haben keine Erlaubnis");
   };
 
   return (
@@ -164,7 +172,7 @@ export default function paint() {
       </label>
 
       <div>
-        <button onClick={() => changeTheme(getColor)}>Speichern</button>
+        <button onClick={chTheme}>Speichern</button>
       </div>
     </div>
   );

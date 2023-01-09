@@ -75,11 +75,13 @@
       background-color: var(--prime-color);
       cursor: pointer;
       color: #fff;
-      box-shadow: 0 0 5px #999;
+      box-shadow: 0 0 8px var(--prime-color);
       transition: all 300ms;
 
       &:hover {
-        filter: brightness(1.8);
+        background-color: var(--second-color);
+        color: var(--prime-color);
+        box-shadow: 0 0 8px var(--second-color);
       }
 
       &:active {

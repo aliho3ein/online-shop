@@ -19,6 +19,11 @@ const loginSlice = createSlice({
       state.abMn = action.payload.ability[1];
       state.abTm = action.payload.ability[2];
       state.abSc = action.payload.ability[3];
+      if (action.payload.ability[0] == true) {
+        state.abMn = true;
+        state.abTm = true;
+        state.abSc = true;
+      }
     },
     logOutUser: (state: any) => {
       state.token = "";
@@ -53,6 +58,9 @@ export const {
 export const selectAllUser = (state: RootState) => state.loginSlice.users;
 export const selectUser = (state: RootState) => state.loginSlice.userName;
 export const selectToken = (state: RootState) => state.loginSlice.token;
+export const mnValid = (state: RootState) => state.loginSlice.abMn;
+export const tmValid = (state: RootState) => state.loginSlice.abTm;
+export const scValid = (state: RootState) => state.loginSlice.abSc;
 
 /*================= Sort the Lists =======================*/
 function compare(a: any, b: any) {

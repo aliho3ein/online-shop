@@ -7,7 +7,7 @@ import {
   selectItem,
   updateItem,
 } from "../../app/store/slice/portalSlice";
-import { selectUser } from "../../app/store/slice/loginSlice";
+import { mnValid, selectUser } from "../../app/store/slice/loginSlice";
 import { addPm, backToMainPm } from "./../../app/actions/alerts";
 import { checkValidation, inValidInput } from "../../app/actions/validations";
 /* Upload Image */
@@ -33,6 +33,7 @@ export default function ItForm() {
   };
 
   const dispatcher = useAppDispatch();
+  const valid = useAppSelector(mnValid);
   const router = useRouter();
   const user = useAppSelector(selectUser);
 
@@ -111,7 +112,10 @@ export default function ItForm() {
       date: new Date().toDateString(),
     };
 
-    user && checkValidation(addIt, newItem);
+    /** check permission */
+    valid
+      ? checkValidation(addIt, newItem)
+      : addPm("error", "Sie haben keine Erlaubnis");
   };
 
   /* Back To Main */

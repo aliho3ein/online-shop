@@ -29,16 +29,6 @@ const checkUserWithKey = (myKey, user) => {
     .catch((err) => console.log(err));
 };
 
-/** Get User with Token */
-const getUser = (key, user) => {
-  CallApi()
-    .get(`/users/${key}.json`)
-    .then((res) => {
-      user(res.data.title, key, res.data.ability);
-    })
-    .catch((err) => console.log(err));
-};
-
 /* Get Cat and Items */
 const getDataFromDB = (dispatcher) => {
   CallApi()
@@ -51,9 +41,19 @@ const getDataFromDB = (dispatcher) => {
         return { ...value, key };
       });
       dispatcher(setCategory({ Cat, item }));
+    })
+    .catch((err) => console.log("No Item To show"));
+  console.log("request");
+};
+
+/* Get Theme */
+const getThemeFromDB = () => {
+  CallApi()
+    .get("/theme.json")
+    .then((res) => {
       /* Set Theme */
-      setBaseTheme(res.data.theme.colors);
-      setBaseFont(res.data.theme.fonts);
+      setBaseTheme(res.data.colors);
+      setBaseFont(res.data.fonts);
     })
     .catch((err) => console.log("No Item To show"));
 };
@@ -93,4 +93,5 @@ export {
   getUsersFromDB,
   setBaseTheme,
   setBaseFont,
+  getThemeFromDB,
 };

@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { logInUser, selectToken } from "../../store/slice/loginSlice";
+import { selectToken } from "../../store/slice/loginSlice";
 import FixedItems from "../fixedItems";
 import Loading from "../loading";
 import { getDataFromDB } from "../../actions/logInUser";
@@ -15,14 +15,15 @@ const UserPanelLayout = ({ children }: Props) => {
 
   /* Loading */
   const [loading, setLoading] = useState(true);
+
   const token = useAppSelector(selectToken);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-    getDataFromDB(dispatcher);
-  }, []);
+    token && getDataFromDB(dispatcher);
+  }, [token]);
 
   return (
     <main id="MAIN">

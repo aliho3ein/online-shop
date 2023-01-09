@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { selectUser, updateItem } from "../../app/store/slice/loginSlice";
+import {
+  scValid,
+  selectUser,
+  updateItem,
+} from "../../app/store/slice/loginSlice";
 import { useRouter } from "next/router";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import CallApi from "../../app/instance/api";
@@ -40,6 +44,7 @@ export default function userForm() {
   const router = useRouter();
   /* GetUserName */
   const user = useAppSelector(selectUser);
+  const valid = useAppSelector(scValid);
   /** Get Query */
   const Edit = router.query.id;
 
@@ -93,6 +98,7 @@ export default function userForm() {
     const userName = document.querySelector(".formUsername") as inPut;
     const password = document.querySelector(".formPass") as inPut;
     /** abilities */
+    const admin = document.getElementById("userAdmin") as inPut;
     const manage = document.getElementById("userManage") as inPut;
     const them = document.getElementById("userTheme") as inPut;
     const security = document.getElementById("userSecurity") as inPut;
@@ -103,12 +109,19 @@ export default function userForm() {
       mail: mail?.value,
       image: "",
       pss: password?.value,
-      ability: [false, manage?.checked, them?.checked, security?.checked],
+      ability: [
+        admin?.checked,
+        manage?.checked,
+        them?.checked,
+        security?.checked,
+      ],
       date: new Date().toDateString(),
       token: mxId(),
     };
 
-    user && userValidation(addIt, newItem);
+    valid
+      ? userValidation(addIt, newItem)
+      : addPm("error", "Sie haben keine Erlaubnis");
   };
 
   /* Back To Main */
