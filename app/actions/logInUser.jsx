@@ -1,6 +1,7 @@
 import CallApi from "../instance/api";
 import { setCategory } from "../../app/store/slice/portalSlice";
 import { setUsers } from "../store/slice/loginSlice";
+import { addPm } from "./alerts";
 
 /* Check user */
 export default function checkUser(user) {
@@ -14,9 +15,13 @@ export default function checkUser(user) {
         ([key, item]) =>
           item.title === username.value && item.pss === pass.value
       );
-      dt && user(dt[1].title, dt[0], dt[1].ability);
+      dt
+        ? user(dt[1].title, dt[0], dt[1].ability)
+        : addPm("error", "Die Angaben sind ungültig");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 const checkUserWithKey = (myKey, user) => {
@@ -43,7 +48,6 @@ const getDataFromDB = (dispatcher) => {
       dispatcher(setCategory({ Cat, item }));
     })
     .catch((err) => console.log("No Item To show"));
-  console.log("request");
 };
 
 /* Get Theme */

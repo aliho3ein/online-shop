@@ -26,6 +26,19 @@ main {
   overflow: hidden;
 }
 
+#tutorVideo {
+  display: grid;
+  place-content: center;
+  position: relative;
+
+  .videoFrame {
+    width: 50vw;
+    aspect-ratio: 1.76;
+    min-width: 300px;
+    border: 5px solid var(--second-color);
+  }
+}
+
 /* Scroll */
 ::-webkit-scrollbar {
   width: 5px;

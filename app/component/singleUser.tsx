@@ -20,7 +20,9 @@ export default function SingleUser(props: any) {
 
   /* Edit Category */
   const editCat = () => {
-    router.push(`/security/userForm?id=${key}`);
+    valid
+      ? router.push(`/security/userForm?id=${key}`)
+      : addPm("error", "Sie haben keine Erlaubnis");
   };
 
   /* Check permission */

@@ -137,13 +137,25 @@ export default function MainAside() {
           <FontAwesomeIcon className="icon" icon={faLifeRing} />
           Tutorial
           <ul className="innerNav4" style={wd_1}>
-            <li className={style.inNav} style={i_1}>
+            <li
+              className="inNav"
+              onClick={() => router.push("/tutorial/portal")}
+              style={i_1}
+            >
               Verwaltung
             </li>
-            <li className={style.inNav} style={i_2}>
+            <li
+              className="inNav"
+              onClick={() => router.push("/tutorial/security")}
+              style={i_2}
+            >
               Benutzer
             </li>
-            <li className={style.inNav} style={i_3}>
+            <li
+              className="inNav"
+              onClick={() => router.push("/tutorial/theme")}
+              style={i_3}
+            >
               Erscheinungsbild
             </li>
           </ul>

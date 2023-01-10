@@ -52,6 +52,15 @@ export default function activeNav(link, cats, items) {
   }
   /* Second part */
   switch (menu[2]) {
+    case "portal":
+      siteMap += `<span class='siteMap'>Verwaltung</span>`;
+      break;
+    case "theme":
+      siteMap += `<span class='siteMap'>Ersheinungsbild</span>`;
+      break;
+    case "security":
+      siteMap += `<span class='siteMap'>Sicherheit</span>`;
+      break;
     case "categorys":
       siteMap += `<span class='siteMap'>Kategories</span>`;
       break;
