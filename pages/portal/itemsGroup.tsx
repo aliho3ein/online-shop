@@ -3,6 +3,7 @@ import SingleItemsGroup from "../../app/component/singleItemsGroup";
 import { useAppSelector } from "../../app/hooks";
 import { selectCat } from "../../app/store/slice/portalSlice";
 import UserPanelLayout from "../../app/component/fixedArea/main";
+import Head from "next/head";
 
 export default function ItemGroups() {
   const Items = useAppSelector(selectCat);
@@ -15,10 +16,15 @@ export default function ItemGroups() {
   });
 
   return (
-    <div className="baseItems">
-      {group}
-      <div className={style.freePlace}></div>
-    </div>
+    <>
+      <Head>
+        <title>Producte</title>
+      </Head>
+      <div className="baseItems">
+        {group}
+        <div className={style.freePlace}></div>
+      </div>
+    </>
   );
 }
 

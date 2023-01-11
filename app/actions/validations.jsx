@@ -36,6 +36,8 @@ const userValidation = (func, us) => {
     return func(false, "UserName ist nicht gültig", "formUsername");
   /* Image */ else if (!us.pss)
     return func(false, "Kennwort ist nicht gültig", "formPass");
+  /* position */ else if (!us.position)
+    return func(false, "Position ist nicht gültig", "formPosition");
   else return func(true);
 };
 

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import UserPanelLayout from "../../app/component/fixedArea/main";
 
@@ -19,9 +20,14 @@ export default function videos() {
   }
 
   return (
-    <div id="tutorVideo">
-      <iframe className="videoFrame" src={link}></iframe>
-    </div>
+    <>
+      <Head>
+        <title>Tutorial</title>
+      </Head>
+      <div id="tutorVideo">
+        <iframe className="videoFrame" src={link}></iframe>
+      </div>
+    </>
   );
 }
 

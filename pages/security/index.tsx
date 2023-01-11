@@ -6,6 +6,7 @@ import SingleUser from "../../app/component/singleUser";
 import { useEffect } from "react";
 import UserPanelLayout from "../../app/component/fixedArea/main";
 import { getUsersFromDB } from "../../app/actions/logInUser";
+import Head from "next/head";
 
 export default function users() {
   const dispatcher = useAppDispatch();
@@ -22,13 +23,18 @@ export default function users() {
   ));
 
   return (
-    <div className="baseCatItems">
-      <Link href="/security/userForm" className="catAddBtn">
-        Hinzufügen
-      </Link>
-      {getUser}
-      <div className="freePlace"></div>
-    </div>
+    <>
+      <Head>
+        <title>Nutzer</title>
+      </Head>
+      <div className="baseCatItems">
+        <Link href="/security/userForm" className="catAddBtn">
+          Hinzufügen
+        </Link>
+        {getUser}
+        <div className="freePlace"></div>
+      </div>
+    </>
   );
 }
 

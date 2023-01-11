@@ -22,6 +22,14 @@
     font-size: 1.2rem;
   }
 
+  .lastEdit {
+    color: #999;
+    font-size: 0.7rem;
+    align-self: flex-start;
+    user-select: none;
+    margin-left: 10px;
+  }
+
   ul {
     align-self: flex-start;
     list-style-type: circle;
@@ -32,6 +40,7 @@
     border-radius: 10px;
     position: relative;
     box-sizing: border-box;
+    margin-top: 10px;
 
     li {
       margin-top: 1rem;

@@ -17,6 +17,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import style from "./../../styles/component/_itemsForm.module.scss";
 import FixedItems from "../../app/component/fixedItems";
 import UserPanelLayout from "../../app/component/fixedArea/main";
+import Head from "next/head";
 
 export default function ItForm() {
   let [catImage, SetCatImage] = useState<string | null>();
@@ -127,114 +128,119 @@ export default function ItForm() {
   };
 
   return (
-    <div className="formCatItem">
-      <span
-        className="backToCat"
-        onClick={backToMain}
-        title="züruck zu Items group"
-      >
-        -
-      </span>
-      {Edit && (
-        <p>
-          erstellt von <strong>{thisItem?.user}</strong> am
-          <span> {thisItem?.date}</span>
-        </p>
-      )}
-      <section>
-        <label>Brand</label>
-        <input
-          type="input"
-          defaultValue={thisItem?.brand}
-          className="formBrand"
-          placeholder="Brand "
-        />
-      </section>
-      <section>
-        <label>Title</label>
-        <input
-          type="input"
-          className="formTitle"
-          placeholder="Artikle Name"
-          defaultValue={thisItem?.title}
-        />
-      </section>
-
-      <section>
-        <label>Bild</label>
-        <input
-          type="input"
-          className="formUrl"
-          defaultValue={thisItem?.image}
-          placeholder="URL Https://"
-        />
-        oder
-        <input
-          type="file"
-          onChange={uploadPic}
-          className="formImg"
-          accept="image/*"
-        />
-        <label>
-          <span>bilder von PC haben priorität</span>
-        </label>
-      </section>
-      <section>
-        <label>Preis</label>
-        <input
-          type="input"
-          defaultValue={thisItem?.price}
-          className="formPrice"
-          placeholder="in Euro"
-        />
-        <label htmlFor="offerItem" className="offerLabel">
-          <input
-            type="checkbox"
-            id="offerItem"
-            defaultChecked={thisItem?.off}
-          />
-          hat Artikel ein angebot ?
+    <>
+      <Head>
+        <title>Ware Formular</title>
+      </Head>
+      <div className="formCatItem">
+        <span
+          className="backToCat"
+          onClick={backToMain}
+          title="züruck zu Items group"
+        >
+          -
+        </span>
+        {Edit && (
+          <p>
+            erstellt von <strong>{thisItem?.user}</strong> am
+            <span> {thisItem?.date}</span>
+          </p>
+        )}
+        <section>
+          <label>Brand</label>
           <input
             type="input"
-            id="offPrice"
-            className="offPrice"
-            defaultValue={thisItem?.offPrice}
-            placeholder="Preis in Angebout"
+            defaultValue={thisItem?.brand}
+            className="formBrand"
+            placeholder="Brand "
           />
-        </label>
-      </section>
-      <section>
-        <label>Bezeichnung</label>
-        <textarea
-          name=""
-          id=""
-          className="desc"
-          defaultValue={thisItem?.description}
-          placeholder=" Technische Merkmale "
-        ></textarea>
-      </section>
-      <section>
-        <label htmlFor="noItem" className={style.offerLabel}>
+        </section>
+        <section>
+          <label>Title</label>
           <input
-            type="checkbox"
-            id="noItem"
-            defaultChecked={thisItem?.soldOut}
+            type="input"
+            className="formTitle"
+            placeholder="Artikle Name"
+            defaultValue={thisItem?.title}
           />
-          Artikel ist ausverkauft ?
-        </label>
-      </section>
-      <section className="singleCategoryBtns">
-        {Edit ? (
-          <>
-            <button onClick={addNewItem}>Bearbeiten</button>
-            <button className="noDrop">Löschen</button>
-          </>
-        ) : (
-          <button onClick={addNewItem}>Hinzufügen</button>
-        )}
-      </section>
-      <div className="freePlace"></div>
-    </div>
+        </section>
+
+        <section>
+          <label>Bild</label>
+          <input
+            type="input"
+            className="formUrl"
+            defaultValue={thisItem?.image}
+            placeholder="URL Https://"
+          />
+          oder
+          <input
+            type="file"
+            onChange={uploadPic}
+            className="formImg"
+            accept="image/*"
+          />
+          <label>
+            <span>bilder von PC haben priorität</span>
+          </label>
+        </section>
+        <section>
+          <label>Preis</label>
+          <input
+            type="input"
+            defaultValue={thisItem?.price}
+            className="formPrice"
+            placeholder="in Euro"
+          />
+          <label htmlFor="offerItem" className="offerLabel">
+            <input
+              type="checkbox"
+              id="offerItem"
+              defaultChecked={thisItem?.off}
+            />
+            hat Artikel ein angebot ?
+            <input
+              type="input"
+              id="offPrice"
+              className="offPrice"
+              defaultValue={thisItem?.offPrice}
+              placeholder="Preis in Angebout"
+            />
+          </label>
+        </section>
+        <section>
+          <label>Bezeichnung</label>
+          <textarea
+            name=""
+            id=""
+            className="desc"
+            defaultValue={thisItem?.description}
+            placeholder=" Technische Merkmale "
+          ></textarea>
+        </section>
+        <section>
+          <label htmlFor="noItem" className={style.offerLabel}>
+            <input
+              type="checkbox"
+              id="noItem"
+              defaultChecked={thisItem?.soldOut}
+            />
+            Artikel ist ausverkauft ?
+          </label>
+        </section>
+        <section className="singleCategoryBtns">
+          {Edit ? (
+            <>
+              <button onClick={addNewItem}>Bearbeiten</button>
+              <button className="noDrop">Löschen</button>
+            </>
+          ) : (
+            <button onClick={addNewItem}>Hinzufügen</button>
+          )}
+        </section>
+        <div className="freePlace"></div>
+      </div>
+    </>
   );
 }
 

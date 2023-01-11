@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addPm, backToMainPm, deletePm } from "./../../app/actions/alerts";
+import { addPm, backToMainPm } from "./../../app/actions/alerts";
 import { catValidation, inValidInput } from "../../app/actions/validations";
+import Head from "next/head";
 
 /* Api */
 import CallApi from "../../app/instance/api";
@@ -134,66 +135,72 @@ export default function CatForm() {
   };
 
   return (
-    <div className="formCatItem">
-      <span
-        onClick={backToMain}
-        className="backToCat"
-        title="züruck zu Main"
-      ></span>
+    <>
+      <Head>
+        <title>Kategorie Formular</title>
+      </Head>
 
-      {Edit && (
-        <p>
-          erstellt von <strong>{thisCat.user}</strong> am
-          <span> {thisCat.date}</span>
-        </p>
-      )}
-      <section>
-        <label>Title</label>
-        <input
-          type="input"
-          placeholder="Kategorie Name"
-          className="formTitle"
-          defaultValue={thisCat?.title}
-        />
-      </section>
-      <section>
-        <label>
-          Hashtags <span> ( optional )</span>
-        </label>
-        <input
-          type="input"
-          className="formHash"
-          placeholder="brands , artikles ,"
-          defaultValue={thisCat?.hashtag}
-        />
-      </section>
-      <section>
-        <label>Bild</label>
-        <input
-          type="input"
-          className="formUrl"
-          placeholder="URL Https://"
-          defaultValue={thisCat?.image}
-        />
-        oder
-        <input
-          type="file"
-          className="formImg"
-          onChange={uploadPic}
-          accept="image/*"
-        />
-        <label>
-          <span>bilder von PC haben priorität</span>
-        </label>
-      </section>
-      <section className="singleCategoryBtns">
-        {!Edit ? (
-          <button onClick={addCat}>Hinzufügen</button>
-        ) : (
-          <button onClick={addCat}>Bearbeiten</button>
+      <div className="formCatItem">
+        <span
+          onClick={backToMain}
+          className="backToCat"
+          title="züruck zu Main"
+        ></span>
+
+        {Edit && (
+          <p>
+            erstellt von <strong>{thisCat.user}</strong> am
+            <span> {thisCat.date}</span>
+          </p>
         )}
-      </section>
-    </div>
+        <section>
+          <label>Title</label>
+          <input
+            type="input"
+            placeholder="Kategorie Name"
+            className="formTitle"
+            defaultValue={thisCat?.title}
+          />
+        </section>
+        <section>
+          <label>
+            Hashtags <span> ( optional )</span>
+          </label>
+          <input
+            type="input"
+            className="formHash"
+            placeholder="brands , artikles ,"
+            defaultValue={thisCat?.hashtag}
+          />
+        </section>
+        <section>
+          <label>Bild</label>
+          <input
+            type="input"
+            className="formUrl"
+            placeholder="URL Https://"
+            defaultValue={thisCat?.image}
+          />
+          oder
+          <input
+            type="file"
+            className="formImg"
+            onChange={uploadPic}
+            accept="image/*"
+          />
+          <label>
+            <span>bilder von PC haben priorität</span>
+          </label>
+        </section>
+        <section className="singleCategoryBtns">
+          {!Edit ? (
+            <button onClick={addCat}>Hinzufügen</button>
+          ) : (
+            <button onClick={addCat}>Bearbeiten</button>
+          )}
+        </section>
+      </div>
+    </>
   );
 }
 
